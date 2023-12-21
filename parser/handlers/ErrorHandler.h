@@ -35,6 +35,8 @@ public:
 
     std::vector<Error> getErrors() const;
 
+    void printErrors() const;
+
     void addError(const Error&error);
 
     ~ErrorHandler() = default;

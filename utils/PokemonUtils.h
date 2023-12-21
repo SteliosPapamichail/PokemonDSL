@@ -12,7 +12,8 @@ enum POKEMON_TYPE {
     Electric,
     Fire,
     Water,
-    Grass
+    Grass,
+    INVALID
 };
 
 std::string PokemonTypeToString(POKEMON_TYPE type);

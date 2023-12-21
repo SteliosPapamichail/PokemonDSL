@@ -19,14 +19,27 @@ bool hasSeenError = false;
 #define BEGIN_GAME int \
     main() \
     { \
-    std::cout << "------------------------------ POKEMON THE GAME ------------------------------" << std::endl; \
-
-#define END_GAME ;return \
-    ErrorHandler::getInstance().getErrors().empty() ? 0 : -1; \
+    std::cout << "------------------------------ POKEMON THE GAME ------------------------------" << std::endl;
+#define END_GAME ; \
+    ErrorHandler& errorHandler =  ErrorHandler::getInstance();\
+    errorHandler.printErrors();\
+    return errorHandler.getErrors().empty() ? 0 : -1; \
     }
 
 // CREATE COMMANDS
 #define CREATE Expr* expr;
+
+// POKEMON CREATION
+#define POKEMON \
+    expr = new SinglePokemonDefExpr
+
+// pokemon types
+#define TYPE \
+    false ? ""
+
+// pokemon hp
+#define HP \
+    false ? 0
 
 // ABILITY CREATION
 #define ABILITY \
@@ -35,10 +48,10 @@ bool hasSeenError = false;
 // member definition fields
 #define NAME \
     false ? ""
-    // switch(expr->getExprType) { \
-    //     case CREATE_SINGLE_ABILITY_EXPR: \
-    //         std::cout << "Found name for ability" << std::endl; \
-    //         break; \
-    // }
+// switch(expr->getExprType) { \
+//     case CREATE_SINGLE_ABILITY_EXPR: \
+//         std::cout << "Found name for ability" << std::endl; \
+//         break; \
+// }
 
 #endif //CODEGEN_H

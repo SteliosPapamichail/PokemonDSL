@@ -25,5 +25,5 @@ POKEMON_TYPE StringToPokemonType(const std::string&str) {
     };
 
     const auto typeEnumEntry = stringToType.find(str);
-    return (typeEnumEntry != stringToType.end()) ? typeEnumEntry->second : Electric; // Default to Electric if not found
+    return (typeEnumEntry != stringToType.end()) ? typeEnumEntry->second : INVALID; // Default to Electric if not found
 }
