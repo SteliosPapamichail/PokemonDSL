@@ -5,6 +5,7 @@
 #ifndef POKEMON_H
 #define POKEMON_H
 #include <string>
+#include <iostream>
 #include "../utils/PokemonUtils.h"
 
 class Pokemon final {
@@ -15,6 +16,8 @@ class Pokemon final {
     bool canPerformAbility = true;
 
 public:
+    friend std::ostream& operator<<(std::ostream& os, const Pokemon& pokemon);
+
     std::string getName() const;
 
     POKEMON_TYPE getType() const;

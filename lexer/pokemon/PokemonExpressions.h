@@ -4,24 +4,38 @@
 
 #ifndef POKEMONEXPRESSIONS_H
 #define POKEMONEXPRESSIONS_H
+#include <memory>
+
 #include "../common/Expressions.h"
 #include "../../parser/handlers/ErrorHandler.h"
+#include "../../utils/Utils.h"
+
+extern vector<Pokemon> declaredPokemons;
 
 class SinglePokemonDefExpr final : public Expr {
-    Pokemon* _pokemon;
+    Pokemon _pokemon;
+    unsigned int _numOfChainedPokemonDefs = 0;
 
 public:
-    ~SinglePokemonDefExpr();
+    ~SinglePokemonDefExpr() = default;
 
     ExprType getExprType() override {
         return CREATE_SINGLE_POKEMON_EXPR;
     }
 
-    const Pokemon* getPokemon() const;
+    Pokemon getPokemon() const;
 
-    SinglePokemonDefExpr(std::string name,
-                         std::string type, const int hp) : Expr("Single Pokemon Definition Expression") {
-        auto pokemonType = StringToPokemonType(type);
+    unsigned int getNumOfChainedPokemonDefs() const;
+
+    SinglePokemonDefExpr* operator,(const SinglePokemonDefExpr* other);
+
+    SinglePokemonDefExpr(
+        const std::string&name,
+        const std::string&type,
+        const int hp
+    ) : Expr("Single Pokemon Definition Expression"),
+        _pokemon(Pokemon(name, StringToPokemonType(type), static_cast<unsigned>(hp))) {
+        const auto pokemonType = StringToPokemonType(type);
         ErrorHandler&errorHandler = ErrorHandler::getInstance();
         if (pokemonType == INVALID) {
             errorHandler.addError(
@@ -31,12 +45,28 @@ public:
             errorHandler.addError(
                 Error("Invalid HP value specified for " + name, __LINE__));
         }
+        else if (doesPokemonNameExist(name)) {
+            errorHandler.addError(
+                Error("Pokemon \"" + name + "\" has already been declared!", __LINE__));
+        }
         else {
-            _pokemon = new Pokemon{
-                name, StringToPokemonType(type), hp
-            };
+            declaredPokemons.push_back(_pokemon);
         }
     }
+};
+
+class MultiPokemonDefExpr final : public Expr {
+public:
+    ExprType getExprType() override {
+        return CREATE_MULTIPLE_POKEMON_EXPR;
+    };
+
+    MultiPokemonDefExpr* operator[](const SinglePokemonDefExpr* pokemonDefExpr);
+
+    ~MultiPokemonDefExpr() = default;
+
+    MultiPokemonDefExpr(): Expr("Multi Pokemon Definition Expression") {
+    };
 };
 
 #endif //POKEMONEXPRESSIONS_H

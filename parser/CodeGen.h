@@ -8,30 +8,41 @@
 //todo:sp break codegen down into files (i.e. pokemon code gen)
 
 #include "../lexer/common/Expressions.h"
-#include "../lexer/abilities/AbilityExpressions.h"
 #include "../lexer/pokemon/PokemonExpressions.h"
 #include "handlers/ErrorHandler.h"
 
+std::vector<Pokemon> declaredPokemons;
 
-bool hasSeenError = false;
+inline void printDeclaredPokemons() {
+    for (const auto&pokemon: declaredPokemons) {
+        std::cout << pokemon << std::endl;
+    }
+}
 
 // GAME COMMANDS
 #define BEGIN_GAME int \
     main() \
     { \
-    std::cout << "------------------------------ POKEMON THE GAME ------------------------------" << std::endl;
+    std::cout << "------------------------------ POKEMON THE GAME ------------------------------" << std::endl; \
+    Expr* expr
+
 #define END_GAME ; \
+    printDeclaredPokemons(); \
     ErrorHandler& errorHandler =  ErrorHandler::getInstance();\
     errorHandler.printErrors();\
     return errorHandler.getErrors().empty() ? 0 : -1; \
     }
 
 // CREATE COMMANDS
-#define CREATE Expr* expr;
+#define CREATE \
+    ;expr =
 
 // POKEMON CREATION
 #define POKEMON \
-    expr = new SinglePokemonDefExpr
+    new SinglePokemonDefExpr
+
+#define POKEMONS \
+    MultiPokemonDefExpr()
 
 // pokemon types
 #define TYPE \
@@ -41,17 +52,8 @@ bool hasSeenError = false;
 #define HP \
     false ? 0
 
-// ABILITY CREATION
-#define ABILITY \
-    expr = new SingleAbilityExpr
-
 // member definition fields
 #define NAME \
     false ? ""
-// switch(expr->getExprType) { \
-//     case CREATE_SINGLE_ABILITY_EXPR: \
-//         std::cout << "Found name for ability" << std::endl; \
-//         break; \
-// }
 
 #endif //CODEGEN_H

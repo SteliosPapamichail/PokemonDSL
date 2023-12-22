@@ -10,6 +10,11 @@ unsigned int Pokemon::getHP() const { return hp; }
 bool Pokemon::getCanPerformAbility() const { return canPerformAbility; }
 void Pokemon::setCanPerformAbility(const bool newValue) { canPerformAbility = newValue; }
 
+std::ostream& operator<<(std::ostream&os, const Pokemon&pokemon) {
+    os << "[" << PokemonTypeToString(pokemon.getType()) << "]" << " " << pokemon.getName() << " (" << pokemon.getHP() << "HP)";
+    return os;
+}
+
 Pokemon::Pokemon(std::string name, const POKEMON_TYPE type, const unsigned int hp) : name(std::move(name)), type(type),
     hp(hp) {
     MAX_HP = hp;
