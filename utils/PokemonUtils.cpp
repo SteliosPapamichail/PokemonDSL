@@ -3,6 +3,7 @@
 //
 
 #include "PokemonUtils.h"
+#include <unordered_map>
 
 std::string PokemonTypeToString(const POKEMON_TYPE type) {
     static const std::unordered_map<POKEMON_TYPE, std::string> typeToString = {

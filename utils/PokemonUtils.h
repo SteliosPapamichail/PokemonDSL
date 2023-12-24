@@ -6,7 +6,6 @@
 #define POKEMONUTILS_H
 
 #include <string>
-#include <unordered_map>
 
 enum POKEMON_TYPE {
     Electric,

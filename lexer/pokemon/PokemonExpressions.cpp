@@ -22,7 +22,7 @@ SinglePokemonDefExpr* SinglePokemonDefExpr::operator,(const SinglePokemonDefExpr
 }
 
 MultiPokemonDefExpr* MultiPokemonDefExpr::operator[](const SinglePokemonDefExpr* pokemonDefExpr) {
-    cout << "called [] on multi" << endl;
+    //cout << "called [] on multi" << endl;
     // declaredPokemons.insert(declaredPokemons.end() - pokemonDefExpr->getNumOfChainedPokemonDefs(),
     //                         pokemonDefExpr->getPokemon());
     return this;

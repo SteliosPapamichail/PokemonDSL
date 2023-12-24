@@ -19,4 +19,13 @@ inline bool doesPokemonNameExist(const std::string&nameToCheck) {
     }
     return false;
 }
+
+inline Pokemon* getPokemonByName(const std::string&nameToCheck) {
+    for (Pokemon&pokemon: declaredPokemons) {
+        if (pokemon.getName() == nameToCheck) {
+            return &pokemon;
+        }
+    }
+    return nullptr;
+}
 #endif //UTILS_H

@@ -17,4 +17,11 @@ add_executable(PokemonLeague_4020 main.cpp
         lexer/pokemon/PokemonExpressions.h
         lexer/abilities/AbilityExpressions.cpp
         lexer/abilities/AbilityExpressions.h
-        utils/Utils.h)
+        utils/Utils.h
+        game_manager/Player.cpp
+        game_manager/Player.h
+        game_manager/GameManager.cpp
+        game_manager/GameManager.h
+        fight_manager/FightManager.cpp
+        fight_manager/FightManager.h
+        main.cpp)

@@ -14,6 +14,7 @@ class Pokemon final {
     unsigned int hp;
     unsigned int MAX_HP;
     bool canPerformAbility = true;
+    bool isInPokeball = false;
 
 public:
     friend std::ostream& operator<<(std::ostream& os, const Pokemon& pokemon);
@@ -24,7 +25,13 @@ public:
 
     unsigned int getHP() const;
 
+    unsigned int getMaxHP() const;
+
     bool getCanPerformAbility() const;
+
+    bool getIsInPokeball() const;
+
+    void setIsInPokeball(bool placeInPokeball);
 
     void setCanPerformAbility(bool newValue);
 
@@ -32,7 +39,7 @@ public:
 
     Pokemon(std::string name, POKEMON_TYPE type, unsigned int hp);
 
-    void takeDamage(unsigned int damage);
+    void takeDamage(unsigned int damage, POKEMON_TYPE attackerType, unsigned int round);
 
     void heal(unsigned int amount);
 

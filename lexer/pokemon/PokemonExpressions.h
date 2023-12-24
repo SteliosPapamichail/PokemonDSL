@@ -4,13 +4,10 @@
 
 #ifndef POKEMONEXPRESSIONS_H
 #define POKEMONEXPRESSIONS_H
-#include <memory>
 
 #include "../common/Expressions.h"
 #include "../../parser/handlers/ErrorHandler.h"
 #include "../../utils/Utils.h"
-
-extern vector<Pokemon> declaredPokemons;
 
 class SinglePokemonDefExpr final : public Expr {
     Pokemon _pokemon;
@@ -35,6 +32,7 @@ public:
         const int hp
     ) : Expr("Single Pokemon Definition Expression"),
         _pokemon(Pokemon(name, StringToPokemonType(type), static_cast<unsigned>(hp))) {
+
         const auto pokemonType = StringToPokemonType(type);
         ErrorHandler&errorHandler = ErrorHandler::getInstance();
         if (pokemonType == INVALID) {

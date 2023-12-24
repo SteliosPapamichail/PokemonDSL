@@ -10,28 +10,69 @@
 #include "../lexer/common/Expressions.h"
 #include "../lexer/pokemon/PokemonExpressions.h"
 #include "handlers/ErrorHandler.h"
+#include "../game_manager/GameManager.h"
+#include "../fight_manager/FightManager.h"
 
-std::vector<Pokemon> declaredPokemons;
+std::vector<Pokemon> declaredPokemons = {};
 
-inline void printDeclaredPokemons() {
+void printDeclaredPokemons() {
     for (const auto&pokemon: declaredPokemons) {
         std::cout << pokemon << std::endl;
     }
 }
 
-// GAME COMMANDS
+/**
+ * \brief Configures and begins the game.
+ */
 #define BEGIN_GAME int \
     main() \
     { \
     std::cout << "------------------------------ POKEMON THE GAME ------------------------------" << std::endl; \
     Expr* expr
 
+/**
+ * \brief Prints any errors to the std::cerr stream and ends the game.
+ */
 #define END_GAME ; \
-    printDeclaredPokemons(); \
+    GameManager::getInstance().promptUsersForPokemonSelection(); \
     ErrorHandler& errorHandler =  ErrorHandler::getInstance();\
     errorHandler.printErrors();\
     return errorHandler.getErrors().empty() ? 0 : -1; \
     }
+
+/**
+ * \brief Prints the output to the console.
+ */
+#define SHOW ;std::cout <<
+
+/**
+ * \brief Returns the attacking pokemon in the current round.
+ */
+#define ATTACKER FightManager::getInstance().getAttacker()
+
+
+/**
+ * \brief Returns the defending pokemon in the current round.
+ */
+#define DEFENDER FightManager::getInstance().getDefender()
+
+/**
+ * \brief Returns the name of the given pokemon.
+ * \param pokemon The pokemon whose name to return.
+ */
+#define GET_NAME(pokemon) (pokemon->getName())
+
+/**
+ * \brief Returns the type of the given pokemon.
+ * \param pokemon The pokemon whose type to return
+ */
+#define GET_TYPE(pokemon) (PokemonTypeToString(pokemon->getType()))
+
+/**
+ * \brief Returns the current HP of the given pokemon.
+ * \param pokemon The pokemon whose HP to return.
+ */
+#define GET_HP(pokemon) (pokemon->getHP())
 
 // CREATE COMMANDS
 #define CREATE \
@@ -44,11 +85,15 @@ inline void printDeclaredPokemons() {
 #define POKEMONS \
     MultiPokemonDefExpr()
 
-// pokemon types
+/**
+ * \brief Specifies the pokemon's type.
+ */
 #define TYPE \
     false ? ""
 
-// pokemon hp
+/**
+ * \brief Specifies the pokemon's maximum HP.
+ */
 #define HP \
     false ? 0
 
