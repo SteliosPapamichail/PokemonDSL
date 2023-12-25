@@ -30,5 +30,9 @@ BEGIN_GAME
 
     // SHOW "Name: " << GET_NAME(DEFENDER) << "Type: " <<
     //         GET_TYPE(DEFENDER)
-    SHOW GET_HP(ATTACKER)
+    // SHOW GET_HP(ATTACKER)
+    CREATE ABILITY {
+        NAME: "Earth quake",
+    }
+    DUEL
 END_GAME

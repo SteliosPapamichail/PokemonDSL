@@ -18,6 +18,7 @@ class GameManager final {
 
     Player* _activePlayer = nullptr;
     unsigned int _round;
+    bool _isGameOver = false;
 
     static int generateRandomBinary();
 
@@ -30,6 +31,8 @@ class GameManager final {
 
     void changeTurns();
 
+    void initiateFight() const;
+
 public:
     static GameManager& getInstance();
 
@@ -39,11 +42,13 @@ public:
 
     void promptUsersForPokemonSelection();
 
-    void initiateFight() const;
-
     unsigned int getRound() const;
 
     void nextRound();
+
+    bool isGameOver() const;
+
+    void setIsGameOver(bool isOver);
 };
 
 #endif //GAMEMANAGER_H

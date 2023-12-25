@@ -12,8 +12,9 @@ class FightManager final {
 
     FightManager() = default;
 
-    FightManager(Pokemon* attacker, Pokemon* defender) : _attacker(attacker), _defender(defender) {
-    }
+    FightManager(Pokemon* attacker, Pokemon* defender) : _attacker(attacker), _defender(defender) {}
+
+    void endRound() const;
 
 public:
     static FightManager& getInstance();

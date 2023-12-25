@@ -28,4 +28,13 @@ inline Pokemon* getPokemonByName(const std::string&nameToCheck) {
     }
     return nullptr;
 }
+
+inline bool containsSpace(const std::string&strToCheck) {
+    for (const auto ch: strToCheck) {
+        if (std::isspace(ch)) {
+            return true;
+        }
+    }
+    return false;
+}
 #endif //UTILS_H

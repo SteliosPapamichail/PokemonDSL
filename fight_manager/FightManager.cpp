@@ -4,6 +4,8 @@
 
 #include "FightManager.h"
 
+#include "../game_manager/GameManager.h"
+
 Pokemon* FightManager::getAttacker() const {
     return _attacker;
 }
@@ -40,5 +42,10 @@ void FightManager::startRound(const unsigned round) const {
 
 
 void FightManager::commenceAttack() const {
+}
 
+void FightManager::endRound() const {
+    if (_attacker->getHP() == 0 || _defender->getHP() == 0) {
+        GameManager::getInstance().setIsGameOver(true);
+    }
 }

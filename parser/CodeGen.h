@@ -9,6 +9,7 @@
 
 #include "../lexer/common/Expressions.h"
 #include "../lexer/pokemon/PokemonExpressions.h"
+#include "../lexer/abilities/AbilityExpressions.h"
 #include "handlers/ErrorHandler.h"
 #include "../game_manager/GameManager.h"
 #include "../fight_manager/FightManager.h"
@@ -34,16 +35,23 @@ void printDeclaredPokemons() {
  * \brief Prints any errors to the std::cerr stream and ends the game.
  */
 #define END_GAME ; \
-    GameManager::getInstance().promptUsersForPokemonSelection(); \
     ErrorHandler& errorHandler =  ErrorHandler::getInstance();\
     errorHandler.printErrors();\
     return errorHandler.getErrors().empty() ? 0 : -1; \
     }
 
 /**
+ * \brief Begins the pokemon duel.
+ */
+#define DUEL ;GameManager::getInstance().promptUsersForPokemonSelection();
+
+/**
  * \brief Prints the output to the console.
  */
 #define SHOW ;std::cout <<
+
+//TODO:SP these should create a new expr probably in order to evaluate them
+//todo:sp at runtime once the game manager has valid values.
 
 /**
  * \brief Returns the attacking pokemon in the current round.
@@ -85,6 +93,10 @@ void printDeclaredPokemons() {
 #define POKEMONS \
     MultiPokemonDefExpr()
 
+#define ABILITY new SingleAbilityExpr
+
+#define ABILITIES MultiAbilityDefExpr()
+
 /**
  * \brief Specifies the pokemon's type.
  */
@@ -100,5 +112,11 @@ void printDeclaredPokemons() {
 // member definition fields
 #define NAME \
     false ? ""
+
+#define ACTION
+
+#define START
+
+#define END
 
 #endif //CODEGEN_H

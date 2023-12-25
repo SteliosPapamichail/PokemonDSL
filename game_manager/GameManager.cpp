@@ -43,6 +43,7 @@ void GameManager::promptUsersForPokemonSelection() {
         }
         p->setSelectedPokemon(selectedPokemon);
     }
+    initiateFight();
 }
 
 
@@ -61,6 +62,15 @@ void GameManager::nextRound() {
 Player* GameManager::getInactivePlayer() const {
     return _players[0]->hasTurn() ? _players[1] : _players[0];
 }
+
+bool GameManager::isGameOver() const {
+    return _isGameOver;
+}
+
+void GameManager::setIsGameOver(const bool isOver) {
+    _isGameOver = isOver;
+}
+
 
 void GameManager::initiateFight() const {
     //todo:sp print console
