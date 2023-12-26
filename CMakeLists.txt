@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_executable(PokemonLeague_4020 main.cpp
         lexer/common/Expressions.h
-        parser/CodeGen.h
+        parser/PokemonLeague_4020.h
         parser/handlers/ErrorHandler.cpp
         parser/handlers/ErrorHandler.h
         pokemon_models/Pokemon.cpp
@@ -24,4 +24,11 @@ add_executable(PokemonLeague_4020 main.cpp
         game_manager/GameManager.h
         fight_manager/FightManager.cpp
         fight_manager/FightManager.h
-        main.cpp)
+        main.cpp
+        lexer/abilities/actions/ActionExpressions.cpp
+        lexer/abilities/actions/ActionExpressions.h
+        parser/codegen/GameLifecycleGen.h
+        parser/codegen/PokemonGen.h
+        parser/codegen/AbilityGen.h
+        parser/codegen/IfExprGen.h
+        parser/codegen/LogicalOpExprGen.h)

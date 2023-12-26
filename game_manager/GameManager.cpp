@@ -34,7 +34,7 @@ void GameManager::promptUsersForPokemonSelection() {
         std::cout << "----------------------------------------------" << std::endl;
         printDeclaredPokemons();
         std::cout << "----------------------------------------------" << std::endl;
-        std::cin >> pokemonName;
+        std::getline(std::cin, pokemonName);
 
         Pokemon* selectedPokemon = getPokemonByName(pokemonName);
         if (selectedPokemon == nullptr) {

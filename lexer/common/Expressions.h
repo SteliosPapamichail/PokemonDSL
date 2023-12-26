@@ -34,16 +34,4 @@ public:
 protected:
     ~Expr() = default;
 };
-
-class AbilityActionExpr final : public Expr {
-    //TODO:sp need to construct AST in this case
-public:
-    AbilityActionExpr() : Expr("Ability Action Expression") {
-    }
-
-    ExprType getExprType() override {
-        return ABILITY_ACTION_EXPR;
-    }
-};
-
 #endif //EXPRESSIONS_H

@@ -8,6 +8,7 @@
 #include "../../parser/handlers/ErrorHandler.h"
 #include "../../utils/Utils.h"
 #include "../common/Expressions.h"
+#include "../abilities/actions/ActionExpressions.h"
 
 class SingleAbilityExpr final : public Expr {
     string _abilityName;

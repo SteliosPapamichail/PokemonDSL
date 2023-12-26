@@ -2,7 +2,7 @@
 // Created by Steli on 22/12/2023.
 //
 
-#include "parser/CodeGen.h"
+#include "parser/PokemonLeague_4020.h"
 
 BEGIN_GAME
     CREATE POKEMON{
@@ -28,11 +28,16 @@ BEGIN_GAME
               }
           ]
 
-    // SHOW "Name: " << GET_NAME(DEFENDER) << "Type: " <<
-    //         GET_TYPE(DEFENDER)
-    // SHOW GET_HP(ATTACKER)
     CREATE ABILITY {
-        NAME: "Earth quake",
+        NAME: "Electric_Shock",
+        // ACTION: START
+        //     IF GET_HP(ATTACKER) < 30 DO
+        //         HEAL ATTACKER 25
+        //     ELSE
+        //         HEAL ATTACKER 15
+        //     END
+        // END
     }
+
     DUEL
 END_GAME
