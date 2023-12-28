@@ -6,11 +6,12 @@
 #define GAMEMANAGER_H
 
 #include "Player.h"
-#include "../utils/Utils.h"
-
-extern void printDeclaredPokemons();
+#include "../lexer/abilities/AbilityExpressions.h"
+#include "../pokemon_models/Pokemon.h"
 
 class GameManager final {
+    std::vector<Pokemon> _declaredPokemons = {};
+    std::vector<SingleAbilityExpr> _declaredAbilities = {};
     Player* _players[2] = {
         new Player{"Player 1"},
         new Player{"Player 2"}
@@ -22,10 +23,7 @@ class GameManager final {
 
     static int generateRandomBinary();
 
-    GameManager(): _round(0) {
-        _activePlayer = _players[generateRandomBinary()];
-        _activePlayer->beginTurn();
-    } ;
+    GameManager();
 
     Player* getInactivePlayer() const;
 
@@ -34,6 +32,16 @@ class GameManager final {
     void initiateFight() const;
 
 public:
+    std::vector<Pokemon> getDeclaredPokemons() const;
+    std::vector<SingleAbilityExpr> getDeclaredAbilities() const;
+
+    void declarePokemon(const Pokemon& pokemon);
+    void declareAbility(const SingleAbilityExpr& ability);
+
+    void printDeclaredPokemons() const;
+
+    void printDeclaredAbilities() const;
+
     static GameManager& getInstance();
 
     GameManager(GameManager const&) = delete;

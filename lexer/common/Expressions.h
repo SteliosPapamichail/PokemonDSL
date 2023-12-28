@@ -8,10 +8,6 @@
 #include <string>
 #include <utility>
 
-#include "../../pokemon_models/Pokemon.h"
-
-using namespace std;
-
 enum ExprType {
     CREATE_SINGLE_ABILITY_EXPR,
     CREATE_SINGLE_POKEMON_EXPR,
@@ -21,14 +17,14 @@ enum ExprType {
 };
 
 class Expr {
-    string _name;
+    std::string _name;
 
 public:
-    virtual string getName() const { return _name; }
+    virtual std::string getName() const { return _name; }
 
     virtual ExprType getExprType() =0;
 
-    explicit Expr(string name) : _name(std::move(name)) {
+    explicit Expr(std::string name) : _name(std::move(name)) {
     }
 
 protected:

@@ -30,14 +30,22 @@ BEGIN_GAME
 
     CREATE ABILITY {
         NAME: "Electric_Shock",
-        // ACTION: START
-        //     IF GET_HP(ATTACKER) < 30 DO
-        //         HEAL ATTACKER 25
-        //     ELSE
-        //         HEAL ATTACKER 15
-        //     END
-        // END
+        ACTION: START
+            // IF GET_HP(ATTACKER) < 30 DO
+            //     HEAL ATTACKER 25
+            // ELSE
+            //     HEAL ATTACKER 15
+            // END
+        END
     }
-
+    CREATE ABILITY {
+        NAME: "Lightning_Rod",
+        ACTION: START
+        END
+    }
+    // DEAR "Pikachu" LEARN [
+    //     ABILITY_NAME(Electric_Shock)
+    //     ABILITY_NAME(Lightning_Rod)
+    // ]
     DUEL
 END_GAME

@@ -4,9 +4,22 @@
 
 #ifndef POKEMON_H
 #define POKEMON_H
+#include <functional>
 #include <string>
-#include <iostream>
+#include <vector>
+
+
 #include "../utils/PokemonUtils.h"
+
+class SingleAbilityExpr;
+
+class Ability final {
+    std::string _abilityName;
+    std::function<void()> _action = {};
+
+public:
+    Ability(std::string name, const std::function<void()>&action);
+};
 
 class Pokemon final {
     std::string name;
@@ -15,9 +28,12 @@ class Pokemon final {
     unsigned int MAX_HP;
     bool canPerformAbility = true;
     bool isInPokeball = false;
+    std::vector<Ability> _learnedAbilities = {};
+
+    void learnAbility(const Ability&ability);
 
 public:
-    friend std::ostream& operator<<(std::ostream& os, const Pokemon& pokemon);
+    friend std::ostream& operator<<(std::ostream&os, const Pokemon&pokemon);
 
     std::string getName() const;
 
@@ -39,11 +55,15 @@ public:
 
     Pokemon(std::string name, POKEMON_TYPE type, unsigned int hp);
 
+    Pokemon* operator[](const SingleAbilityExpr&ability);
+
     void takeDamage(unsigned int damage, POKEMON_TYPE attackerType, unsigned int round);
 
     void heal(unsigned int amount);
 
     bool hasBeenDefeated() const;
+
+    std::vector<Ability> getAbilities() const;
 };
 
 #endif //POKEMON_H

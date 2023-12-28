@@ -6,9 +6,8 @@
 #define PLAYER_H
 #include <string>
 #include <utility>
-#include <vector>
 
-#include "../pokemon_models/Pokemon.h"
+class Pokemon;
 
 class Player final {
     std::string _name;

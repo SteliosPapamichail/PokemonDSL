@@ -48,7 +48,7 @@ public:
                 Error("Pokemon \"" + name + "\" has already been declared!", __LINE__));
         }
         else {
-            declaredPokemons.push_back(_pokemon);
+            GameManager::getInstance().declarePokemon(_pokemon);
         }
     }
 };

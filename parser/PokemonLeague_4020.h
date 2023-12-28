@@ -5,6 +5,7 @@
 #ifndef CODEGEN_H
 #define CODEGEN_H
 
+#include <iostream>
 #include "../lexer/common/Expressions.h"
 #include "../lexer/pokemon/PokemonExpressions.h"
 #include "../lexer/abilities/actions/ActionExpressions.h"
@@ -13,22 +14,8 @@
 #include "../game_manager/GameManager.h"
 #include "../fight_manager/FightManager.h"
 #include "codegen/GameLifecycleGen.h"
+#include "codegen/AbilityLearning.h"
 #include "codegen/PokemonGen.h"
-
-std::vector<Pokemon> declaredPokemons = {};
-std::vector<SingleAbilityExpr> declaredAbilities = {};
-
-void printDeclaredPokemons() {
-    for (const auto&pokemon: declaredPokemons) {
-        std::cout << pokemon << std::endl;
-    }
-}
-
-void printDeclaredAbilities() {
-    for (const auto&ability: declaredAbilities) {
-        std::cout << ability.getAbilityName() << std::endl;
-    }
-}
 
 
 /**

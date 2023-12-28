@@ -31,4 +31,5 @@ add_executable(PokemonLeague_4020 main.cpp
         parser/codegen/PokemonGen.h
         parser/codegen/AbilityGen.h
         parser/codegen/IfExprGen.h
-        parser/codegen/LogicalOpExprGen.h)
+        parser/codegen/LogicalOpExprGen.h
+        parser/codegen/AbilityLearning.h)

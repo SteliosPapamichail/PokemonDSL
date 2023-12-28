@@ -4,8 +4,14 @@
 
 #include "GameManager.h"
 #include <random>
-
+#include <iostream>
+#include "../utils/Utils.h"
 #include "../fight_manager/FightManager.h"
+
+GameManager::GameManager() : _round(0) {
+    _activePlayer = _players[generateRandomBinary()];
+    _activePlayer->beginTurn();
+} ;
 
 
 int GameManager::generateRandomBinary() {
@@ -76,4 +82,33 @@ void GameManager::initiateFight() const {
     //todo:sp print console
     FightManager::getInstance().setAttacker(_activePlayer->getPlayerPokemon());
     FightManager::getInstance().setDefender(getInactivePlayer()->getPlayerPokemon());
+}
+
+std::vector<SingleAbilityExpr> GameManager::getDeclaredAbilities() const {
+    return _declaredAbilities;
+}
+
+std::vector<Pokemon> GameManager::getDeclaredPokemons() const {
+    return _declaredPokemons;
+}
+
+void GameManager::declarePokemon(const Pokemon&pokemon) {
+    _declaredPokemons.push_back(pokemon);
+}
+
+void GameManager::declareAbility(const SingleAbilityExpr&ability) {
+    _declaredAbilities.push_back(ability);
+}
+
+
+void GameManager::printDeclaredPokemons() const {
+    for (const auto&pokemon: _declaredPokemons) {
+        std::cout << pokemon << std::endl;
+    }
+}
+
+void GameManager::printDeclaredAbilities() const {
+    for (const auto&ability: _declaredAbilities) {
+        std::cout << ability.getAbilityName() << std::endl;
+    }
 }

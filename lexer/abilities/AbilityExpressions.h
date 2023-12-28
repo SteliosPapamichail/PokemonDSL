@@ -6,34 +6,31 @@
 #define ABILITYEXPRESSIONS_H
 
 #include "../../parser/handlers/ErrorHandler.h"
-#include "../../utils/Utils.h"
-#include "../common/Expressions.h"
 #include "../abilities/actions/ActionExpressions.h"
 
 class SingleAbilityExpr final : public Expr {
-    string _abilityName;
+    std::string _abilityName;
     AbilityActionExpr* _action = nullptr;
+    std::vector<SingleAbilityExpr> _abilitiesCollector;
 
 public:
     ExprType getExprType() override {
         return CREATE_SINGLE_ABILITY_EXPR;
     }
 
-    void setAbilityName(const string&name);
+    void setAbilityName(const std::string&name);
 
-    string getAbilityName() const;
+    std::function<void()> getAbilityAction() const {
+        return _action->getAction();
+    }
 
-    explicit SingleAbilityExpr(const string& abilityName) : Expr(
-                                                         "Single Ability Expression"
-                                                     )
-                                                     ,
-                                                     _abilityName(abilityName) {
-        if (containsSpace(abilityName)) {
-            ErrorHandler::getInstance().addError(
-                Error(
-                    "Ability names are not allowed to contain spaces!", __LINE__));
-        }
-    };
+    std::string getAbilityName() const;
+
+    std::vector<SingleAbilityExpr> getAbilities() const;
+
+    SingleAbilityExpr(const std::string&abilityName, AbilityActionExpr* action);
+
+    SingleAbilityExpr operator()(const SingleAbilityExpr&other);
 };
 
 class MultiAbilityDefExpr final : public Expr {

@@ -4,7 +4,9 @@
 
 #ifndef FIGHTMANAGER_H
 #define FIGHTMANAGER_H
-#include "../pokemon_models/Pokemon.h"
+
+class Pokemon;
+class SingleAbilityExpr;
 
 class FightManager final {
     Pokemon* _attacker = nullptr;
@@ -12,7 +14,7 @@ class FightManager final {
 
     FightManager() = default;
 
-    FightManager(Pokemon* attacker, Pokemon* defender) : _attacker(attacker), _defender(defender) {}
+    FightManager(Pokemon* attacker, Pokemon* defender);
 
     void endRound() const;
 

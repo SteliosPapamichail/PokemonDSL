@@ -19,6 +19,7 @@
 
 #define ACTION false ? nullptr
 
-#define START new AbilityActionExpr {
-
+#define START new AbilityActionExpr {[]() { \
+        std::cout << "attacker is : " << FightManager::getInstance().getAttacker()->getName() << std::endl; \
+    }
 #endif //ABILITYGEN_H

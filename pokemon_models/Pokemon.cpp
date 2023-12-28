@@ -2,7 +2,14 @@
 // Created by Steli on 9/12/2023.
 //
 
+#include <iostream>
+#include "../lexer/abilities/AbilityExpressions.h"
 #include "Pokemon.h"
+
+
+Ability::Ability(std::string name, const std::function<void()>&action) : _abilityName(std::move(name)),
+                                                                         _action(action) {}
+
 
 std::string Pokemon::getName() const { return name; }
 POKEMON_TYPE Pokemon::getType() const { return type; }
@@ -14,6 +21,22 @@ std::ostream& operator<<(std::ostream&os, const Pokemon&pokemon) {
     os << "[" << PokemonTypeToString(pokemon.getType()) << "]" << " " << pokemon.getName() << " (" << pokemon.getHP() <<
             "HP)";
     return os;
+}
+
+std::vector<Ability> Pokemon::getAbilities() const {
+    return _learnedAbilities;
+}
+
+
+void Pokemon::learnAbility(const Ability&ability) {
+    _learnedAbilities.push_back(ability);
+}
+
+Pokemon* Pokemon::operator[](const SingleAbilityExpr&ability) {
+    for (const auto&ab: ability.getAbilities()) {
+        this->learnAbility(Ability(ab.getAbilityName(), ab.getAbilityAction()));
+    }
+    return this;
 }
 
 Pokemon::Pokemon(std::string name, const POKEMON_TYPE type, const unsigned int hp) : name(std::move(name)), type(type),

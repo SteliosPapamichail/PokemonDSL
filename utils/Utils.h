@@ -5,14 +5,12 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include "../pokemon_models/Pokemon.h"
 #include <string>
-#include <vector>
-
-extern std::vector<Pokemon> declaredPokemons;
+#include "../lexer/abilities/AbilityExpressions.h"
+#include "../game_manager/GameManager.h"
 
 inline bool doesPokemonNameExist(const std::string&nameToCheck) {
-    for (const Pokemon&pokemon: declaredPokemons) {
+    for (const Pokemon& pokemon: GameManager::getInstance().getDeclaredPokemons()) {
         if (pokemon.getName() == nameToCheck) {
             return true;
         }
@@ -20,10 +18,28 @@ inline bool doesPokemonNameExist(const std::string&nameToCheck) {
     return false;
 }
 
+inline bool doesAbilityNameExist(const std::string&nameToCheck) {
+    for (const SingleAbilityExpr&ability: GameManager::getInstance().getDeclaredAbilities()) {
+        if (ability.getName() == nameToCheck) {
+            return true;
+        }
+    }
+    return false;
+}
+
 inline Pokemon* getPokemonByName(const std::string&nameToCheck) {
-    for (Pokemon&pokemon: declaredPokemons) {
+    for (Pokemon&pokemon: GameManager::getInstance().getDeclaredPokemons()) {
         if (pokemon.getName() == nameToCheck) {
             return &pokemon;
+        }
+    }
+    return nullptr;
+}
+
+inline SingleAbilityExpr* getAbilityByName(const std::string&nameToCheck) {
+    for (SingleAbilityExpr&ability: GameManager::getInstance().getDeclaredAbilities()) {
+        if (ability.getName() == nameToCheck) {
+            return &ability;
         }
     }
     return nullptr;

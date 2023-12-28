@@ -3,8 +3,10 @@
 //
 
 #include "FightManager.h"
-
 #include "../game_manager/GameManager.h"
+
+FightManager::FightManager(Pokemon* attacker, Pokemon* defender) : _attacker(attacker), _defender(defender) {}
+
 
 Pokemon* FightManager::getAttacker() const {
     return _attacker;

@@ -15,8 +15,8 @@ unsigned int SinglePokemonDefExpr::getNumOfChainedPokemonDefs() const {
 }
 
 SinglePokemonDefExpr* SinglePokemonDefExpr::operator,(const SinglePokemonDefExpr* other) {
-    cout << "called comma from " << this->getPokemon().getName() << endl;
-    declaredPokemons.push_back(other->getPokemon());
+    std::cout << "called comma from " << this->getPokemon().getName() << std::endl;
+    GameManager::getInstance().declarePokemon(other->getPokemon());
     this->_numOfChainedPokemonDefs++;
     return this;
 }
