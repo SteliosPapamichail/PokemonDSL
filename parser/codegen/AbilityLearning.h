@@ -21,7 +21,7 @@
  * Otherwise, nullptr is returned.
  * \param name The name of the ability to look for.
  */
-#define ABILITY_NAME(name) ((*getAbilityByName(#name)))
+#define ABILITY_NAME(name) (*(getAbilityByName(#name)))
 
 
 #endif //ABILITYLEARNING_H

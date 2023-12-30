@@ -4,6 +4,7 @@
 
 #ifndef PLAYER_H
 #define PLAYER_H
+#include <memory>
 #include <string>
 #include <utility>
 
@@ -12,7 +13,7 @@ class Pokemon;
 class Player final {
     std::string _name;
     bool _isPlaying = false;
-    Pokemon* _selectedPokemon = nullptr;
+    std::shared_ptr<Pokemon> _selectedPokemon = nullptr;
 
 public:
     bool hasTurn() const;
@@ -21,9 +22,9 @@ public:
 
     void endTurn();
 
-    Pokemon* getPlayerPokemon() const;
+    std::shared_ptr<Pokemon> getPlayerPokemon() const;
 
-    void setSelectedPokemon(Pokemon* pokemon);
+    void setSelectedPokemon(std::shared_ptr<Pokemon> pokemon);
 
     const std::string& getName() const;
 

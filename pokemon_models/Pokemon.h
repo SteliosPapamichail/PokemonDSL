@@ -19,6 +19,7 @@ class Ability final {
 
 public:
     Ability(std::string name, const std::function<void()>&action);
+    std::string getAbilityName() const;
 };
 
 class Pokemon final {
@@ -51,11 +52,13 @@ public:
 
     void setCanPerformAbility(bool newValue);
 
+    void printLearnedAbilities() const;
+
     ~Pokemon() = default;
 
     Pokemon(std::string name, POKEMON_TYPE type, unsigned int hp);
 
-    Pokemon* operator[](const SingleAbilityExpr&ability);
+    Pokemon operator[](const SingleAbilityExpr& ability);
 
     void takeDamage(unsigned int damage, POKEMON_TYPE attackerType, unsigned int round);
 

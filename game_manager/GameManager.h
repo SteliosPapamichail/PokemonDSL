@@ -5,13 +5,15 @@
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
 
+#include <memory>
+
 #include "Player.h"
 #include "../lexer/abilities/AbilityExpressions.h"
 #include "../pokemon_models/Pokemon.h"
 
 class GameManager final {
-    std::vector<Pokemon> _declaredPokemons = {};
-    std::vector<SingleAbilityExpr> _declaredAbilities = {};
+    std::vector<std::shared_ptr<Pokemon>> _declaredPokemons = {};
+    std::vector<std::shared_ptr<SingleAbilityExpr>> _declaredAbilities = {};
     Player* _players[2] = {
         new Player{"Player 1"},
         new Player{"Player 2"}
@@ -29,11 +31,11 @@ class GameManager final {
 
     void changeTurns();
 
-    void initiateFight() const;
+    void initiateFight();
 
 public:
-    std::vector<Pokemon> getDeclaredPokemons() const;
-    std::vector<SingleAbilityExpr> getDeclaredAbilities() const;
+    std::vector<std::shared_ptr<Pokemon>> getDeclaredPokemons() const;
+    std::vector<std::shared_ptr<SingleAbilityExpr>> getDeclaredAbilities() const;
 
     void declarePokemon(const Pokemon& pokemon);
     void declareAbility(const SingleAbilityExpr& ability);
@@ -49,6 +51,8 @@ public:
     void operator=(GameManager const&) = delete;
 
     void promptUsersForPokemonSelection();
+
+    void promptUsersForAbilitySelection();
 
     unsigned int getRound() const;
 

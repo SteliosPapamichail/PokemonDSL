@@ -11,7 +11,7 @@
 class SingleAbilityExpr final : public Expr {
     std::string _abilityName;
     AbilityActionExpr* _action = nullptr;
-    std::vector<SingleAbilityExpr> _abilitiesCollector;
+    std::vector<SingleAbilityExpr> _abilitiesCollector = {};
 
 public:
     ExprType getExprType() override {
@@ -31,6 +31,8 @@ public:
     SingleAbilityExpr(const std::string&abilityName, AbilityActionExpr* action);
 
     SingleAbilityExpr operator()(const SingleAbilityExpr&other);
+
+    ~SingleAbilityExpr() = default;
 };
 
 class MultiAbilityDefExpr final : public Expr {

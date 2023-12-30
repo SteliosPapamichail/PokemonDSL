@@ -42,11 +42,11 @@ void GameManager::promptUsersForPokemonSelection() {
         std::cout << "----------------------------------------------" << std::endl;
         std::getline(std::cin, pokemonName);
 
-        Pokemon* selectedPokemon = getPokemonByName(pokemonName);
-        if (selectedPokemon == nullptr) {
-            std::cerr << "No pokemon matching " << pokemonName << std::endl;
-            exit(-1); //todo:sp keep prompting while value is invalid
-        }
+        const auto selectedPokemon = getPokemonByName(pokemonName);
+        // if (selectedPokemon == nullptr) {
+        //     std::cerr << "No pokemon matching " << pokemonName << std::endl;
+        //     exit(-1); //todo:sp keep prompting while value is invalid
+        // }
         p->setSelectedPokemon(selectedPokemon);
     }
     initiateFight();
@@ -78,37 +78,56 @@ void GameManager::setIsGameOver(const bool isOver) {
 }
 
 
-void GameManager::initiateFight() const {
-    //todo:sp print console
+void GameManager::initiateFight() {
     FightManager::getInstance().setAttacker(_activePlayer->getPlayerPokemon());
     FightManager::getInstance().setDefender(getInactivePlayer()->getPlayerPokemon());
+    promptUsersForAbilitySelection();
 }
 
-std::vector<SingleAbilityExpr> GameManager::getDeclaredAbilities() const {
+void GameManager::promptUsersForAbilitySelection() {
+    for (const auto p: _players) {
+        std::string abilityName;
+        std::cout << p->getPlayerPokemon()->getName() << "(" << p->getName() << ") select an ability:" << std::endl;
+        std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+        p->getPlayerPokemon()->printLearnedAbilities();
+        std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+        std::getline(std::cin, abilityName);
+
+        auto selectedAbility = getAbilityByName(abilityName);
+        // if (selectedAbility == nullptr) {
+        //     std::cerr << "No ability matching " << abilityName << std::endl;
+        //     exit(-1); //todo:sp keep prompting while value is invalid
+        // }
+        //todo:sp link pokemon to ability
+    }
+}
+
+
+std::vector<std::shared_ptr<SingleAbilityExpr>> GameManager::getDeclaredAbilities() const {
     return _declaredAbilities;
 }
 
-std::vector<Pokemon> GameManager::getDeclaredPokemons() const {
+std::vector<std::shared_ptr<Pokemon>> GameManager::getDeclaredPokemons() const {
     return _declaredPokemons;
 }
 
 void GameManager::declarePokemon(const Pokemon&pokemon) {
-    _declaredPokemons.push_back(pokemon);
+    _declaredPokemons.push_back(std::make_shared<Pokemon>(pokemon));
 }
 
 void GameManager::declareAbility(const SingleAbilityExpr&ability) {
-    _declaredAbilities.push_back(ability);
+    _declaredAbilities.push_back(std::make_shared<SingleAbilityExpr>(ability));
 }
 
 
 void GameManager::printDeclaredPokemons() const {
     for (const auto&pokemon: _declaredPokemons) {
-        std::cout << pokemon << std::endl;
+        std::cout << pokemon->getName() << std::endl;
     }
 }
 
 void GameManager::printDeclaredAbilities() const {
     for (const auto&ability: _declaredAbilities) {
-        std::cout << ability.getAbilityName() << std::endl;
+        std::cout << ability->getAbilityName() << std::endl;
     }
 }

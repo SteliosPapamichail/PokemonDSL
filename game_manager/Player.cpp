@@ -4,6 +4,10 @@
 
 #include "Player.h"
 
+#include <utility>
+
+#include "../lexer/pokemon/PokemonExpressions.h"
+
 const std::string& Player::getName() const {
     return _name;
 }
@@ -20,10 +24,10 @@ bool Player::hasTurn() const {
     return _isPlaying;
 }
 
-Pokemon * Player::getPlayerPokemon() const {
+std::shared_ptr<Pokemon> Player::getPlayerPokemon() const {
     return _selectedPokemon;
 }
 
-void Player::setSelectedPokemon(Pokemon* pokemon) {
-    _selectedPokemon = pokemon;
+void Player::setSelectedPokemon(std::shared_ptr<Pokemon> pokemon) {
+    _selectedPokemon = std::shared_ptr<Pokemon>(std::move(pokemon));
 }

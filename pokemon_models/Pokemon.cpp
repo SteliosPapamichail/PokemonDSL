@@ -3,12 +3,18 @@
 //
 
 #include <iostream>
+#include <utility>
 #include "../lexer/abilities/AbilityExpressions.h"
 #include "Pokemon.h"
 
 
 Ability::Ability(std::string name, const std::function<void()>&action) : _abilityName(std::move(name)),
-                                                                         _action(action) {}
+                                                                         _action(action) {
+}
+
+std::string Ability::getAbilityName() const {
+    return _abilityName;
+}
 
 
 std::string Pokemon::getName() const { return name; }
@@ -32,16 +38,31 @@ void Pokemon::learnAbility(const Ability&ability) {
     _learnedAbilities.push_back(ability);
 }
 
-Pokemon* Pokemon::operator[](const SingleAbilityExpr&ability) {
+Pokemon Pokemon::operator[](const SingleAbilityExpr&ability) {
+    this->learnAbility(Ability(ability.getAbilityName(), ability.getAbilityAction()));
     for (const auto&ab: ability.getAbilities()) {
         this->learnAbility(Ability(ab.getAbilityName(), ab.getAbilityAction()));
     }
-    return this;
+    return *this;
+}
+
+void Pokemon::printLearnedAbilities() const {
+    if (_learnedAbilities.empty()) {
+        std::cout <<
+                "It seems like this pokemon did not manage to live up to its parent\'s \n"
+                "expectations and has thus not learned any abilities. In an effort to avoid disappointing more people, \n"
+                "the game will now come to an end."
+                << std::endl;
+        exit(-1);
+    }
+
+    for (const auto&ability: _learnedAbilities) {
+        std::cout << ability.getAbilityName() << std::endl;
+    }
 }
 
 Pokemon::Pokemon(std::string name, const POKEMON_TYPE type, const unsigned int hp) : name(std::move(name)), type(type),
-    hp(hp) {
-    MAX_HP = hp;
+    hp(hp), MAX_HP(hp) {
 }
 
 void Pokemon::takeDamage(const unsigned int damage, const POKEMON_TYPE attackerType, const unsigned int round) {

@@ -4,13 +4,16 @@
 
 #ifndef FIGHTMANAGER_H
 #define FIGHTMANAGER_H
+#include <memory>
+
+#include "../pokemon_models/Pokemon.h"
 
 class Pokemon;
 class SingleAbilityExpr;
 
 class FightManager final {
-    Pokemon* _attacker = nullptr;
-    Pokemon* _defender = nullptr;
+    std::shared_ptr<Pokemon> _attacker = nullptr;
+    std::shared_ptr<Pokemon> _defender = nullptr;
 
     FightManager() = default;
 
@@ -21,13 +24,13 @@ class FightManager final {
 public:
     static FightManager& getInstance();
 
-    Pokemon* getAttacker() const;
+    std::shared_ptr<Pokemon> getAttacker() const;
 
-    void setAttacker(Pokemon* pokemon);
+    void setAttacker(const std::shared_ptr<Pokemon>&pokemon);
 
-    Pokemon* getDefender() const;
+    std::shared_ptr<Pokemon> getDefender() const;
 
-    void setDefender(Pokemon* pokemon);
+    void setDefender(const std::shared_ptr<Pokemon>&pokemon);
 
     void startRound(unsigned int round) const;
 

@@ -8,19 +8,19 @@
 FightManager::FightManager(Pokemon* attacker, Pokemon* defender) : _attacker(attacker), _defender(defender) {}
 
 
-Pokemon* FightManager::getAttacker() const {
+std::shared_ptr<Pokemon> FightManager::getAttacker() const {
     return _attacker;
 }
 
-Pokemon* FightManager::getDefender() const {
+std::shared_ptr<Pokemon> FightManager::getDefender() const {
     return _defender;
 }
 
-void FightManager::setAttacker(Pokemon* pokemon) {
+void FightManager::setAttacker(const std::shared_ptr<Pokemon>&pokemon) {
     _attacker = pokemon;
 }
 
-void FightManager::setDefender(Pokemon* pokemon) {
+void FightManager::setDefender(const std::shared_ptr<Pokemon>&pokemon) {
     _defender = pokemon;
 }
 

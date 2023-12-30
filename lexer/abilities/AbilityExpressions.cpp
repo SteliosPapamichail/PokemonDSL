@@ -36,9 +36,9 @@ std::vector<SingleAbilityExpr> SingleAbilityExpr::getAbilities() const {
 }
 
 SingleAbilityExpr SingleAbilityExpr::operator()(const SingleAbilityExpr&other) {
+    this->_abilitiesCollector.push_back(other);
     for (const auto&ab: other.getAbilities()) {
         this->_abilitiesCollector.push_back(ab);
     }
-
     return *this;
 }

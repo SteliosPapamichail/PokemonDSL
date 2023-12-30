@@ -43,9 +43,17 @@ BEGIN_GAME
         ACTION: START
         END
     }
-    // DEAR "Pikachu" LEARN [
-    //     ABILITY_NAME(Electric_Shock)
-    //     ABILITY_NAME(Lightning_Rod)
-    // ]
+    CREATE ABILITY {
+        NAME: "Flame_Wheel",
+        ACTION: START
+        END
+    }
+    DEAR "Pikachu" LEARN [
+        ABILITY_NAME(Electric_Shock)
+        ABILITY_NAME(Lightning_Rod)
+    ]
+    DEAR "Ho Oh" LEARN [
+        ABILITY_NAME(Flame_Wheel)
+    ]
     DUEL
 END_GAME
