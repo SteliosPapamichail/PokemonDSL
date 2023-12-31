@@ -35,6 +35,8 @@ class GameManager final {
 
     void printRoundHeader() const;
 
+    void declareWinner();
+
 public:
     std::vector<std::shared_ptr<Pokemon>> getDeclaredPokemons() const;
     std::vector<std::shared_ptr<SingleAbilityExpr>> getDeclaredAbilities() const;

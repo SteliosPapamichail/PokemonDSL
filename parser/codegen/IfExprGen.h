@@ -20,12 +20,12 @@
 /**
  * \brief
  */
-#define IF new IfExpr
+#define IF if (
 
 #define ELSE
 
 #define ELSE_IF
 
-#define DO
+#define DO ) {
 
 #endif //IFEXPRGEN_H

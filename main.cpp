@@ -32,6 +32,9 @@ BEGIN_GAME
         ABILITY {
             NAME: "Electric_Shock",
             ACTION: START
+                // IF true DO
+                //
+                // END
             END
         },
         ABILITY {

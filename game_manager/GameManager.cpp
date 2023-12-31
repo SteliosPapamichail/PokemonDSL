@@ -90,25 +90,49 @@ void GameManager::printRoundHeader() const {
     std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 }
 
+void GameManager::declareWinner() {
+    //TODO(implement);
+}
 
 void GameManager::promptUsersForAbilitySelection() {
-    printRoundHeader();
-    for (const auto p: _players) {
-        std::string abilityName;
-        std::cout << p->getPlayerPokemon()->getName() << "(" << p->getName() << ") select an ability:" << std::endl;
-        std::cout << "----------------------------------------------" << std::endl;
-        p->getPlayerPokemon()->printLearnedAbilities();
-        std::cout << "----------------------------------------------" << std::endl;
-        std::getline(std::cin, abilityName);
+    while(!_isGameOver) {
+        printRoundHeader();
+        for (const auto p: _players) {
+            std::string abilityName;
+            std::cout << p->getPlayerPokemon()->getName() << "(" << p->getName() << ") select an ability:" << std::endl;
+            std::cout << "----------------------------------------------" << std::endl;
+            p->getPlayerPokemon()->printLearnedAbilities();
+            std::cout << "----------------------------------------------" << std::endl;
+            std::getline(std::cin, abilityName);
 
-        auto selectedAbility = getAbilityByName(abilityName);
-        // if (selectedAbility == nullptr) {
-        //     std::cerr << "No ability matching " << abilityName << std::endl;
-        //     exit(-1); //todo:sp keep prompting while value is invalid
-        // }
-        //todo:sp link pokemon to ability to use for this round
-        FightManager::getInstance().commenceAttack();
+            const auto selectedAbility = getAbilityByName(abilityName);
+            const auto abilityToAssign = new Ability {
+                selectedAbility->getAbilityName(),
+                selectedAbility->getAbilityAction()
+            };
+            // if (selectedAbility == nullptr) {
+            //     std::cerr << "No ability matching " << abilityName << std::endl;
+            //     exit(-1); //todo:sp keep prompting while value is invalid
+            // }
+            const auto isAttacker = FightManager::getInstance().getAttacker() == p->getPlayerPokemon();
+            if (isAttacker) {
+                FightManager::getInstance().setAttackerAbility(
+                    abilityToAssign
+                );
+            }
+            else {
+                FightManager::getInstance().setDefenderAbility(
+                   abilityToAssign
+                );
+            }
+            FightManager::getInstance().commenceAttack(isAttacker);
+
+            if(_isGameOver) break;
+        }
+        nextRound();
     }
+    //todo:sp print winner
+    declareWinner();
 }
 
 

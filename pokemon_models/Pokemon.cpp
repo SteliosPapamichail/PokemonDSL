@@ -16,6 +16,11 @@ std::string Ability::getAbilityName() const {
     return _abilityName;
 }
 
+std::function<void()> Ability::getAction() const {
+    return _action;
+}
+
+
 
 std::string Pokemon::getName() const { return name; }
 POKEMON_TYPE Pokemon::getType() const { return type; }

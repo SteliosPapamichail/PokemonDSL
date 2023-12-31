@@ -20,6 +20,7 @@ class Ability final {
 public:
     Ability(std::string name, const std::function<void()>&action);
     std::string getAbilityName() const;
+    std::function<void()> getAction() const;
 };
 
 class Pokemon final {

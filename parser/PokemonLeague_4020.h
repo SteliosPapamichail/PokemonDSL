@@ -23,17 +23,6 @@
  */
 #define SHOW ;std::cout <<
 
-/**
- * \brief Returns the attacking pokemon in the current round.
- */
-#define ATTACKER FightManager::getInstance().getAttacker()
-
-
-/**
- * \brief Returns the defending pokemon in the current round.
- */
-#define DEFENDER FightManager::getInstance().getDefender()
-
 // ---------------- COMMON EXPRESSIONS ----------------
 
 #define CREATE \
@@ -43,6 +32,9 @@
 #define NAME \
     false ? ""
 
+//todo:sp this will need to either emit one "}" or two depending on if it
+// is the END closing the START expression (after adjusting the START macro).
+//TODO("Need to keep track of nested END macros (maybe track actual and expecred values seperately?)")
 #define END }
 
 // ---------------- END COMMON EXPRESSIONS ----------------
