@@ -8,7 +8,7 @@
 #include "../utils/Utils.h"
 #include "../fight_manager/FightManager.h"
 
-GameManager::GameManager() : _round(0) {
+GameManager::GameManager() : _round(1) {
     _activePlayer = _players[generateRandomBinary()];
     _activePlayer->beginTurn();
 } ;
@@ -84,13 +84,21 @@ void GameManager::initiateFight() {
     promptUsersForAbilitySelection();
 }
 
+void GameManager::printRoundHeader() const {
+    std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+    std::cout << "Round " << getRound() << std::endl;
+    std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+}
+
+
 void GameManager::promptUsersForAbilitySelection() {
+    printRoundHeader();
     for (const auto p: _players) {
         std::string abilityName;
         std::cout << p->getPlayerPokemon()->getName() << "(" << p->getName() << ") select an ability:" << std::endl;
-        std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+        std::cout << "----------------------------------------------" << std::endl;
         p->getPlayerPokemon()->printLearnedAbilities();
-        std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+        std::cout << "----------------------------------------------" << std::endl;
         std::getline(std::cin, abilityName);
 
         auto selectedAbility = getAbilityByName(abilityName);
@@ -98,7 +106,8 @@ void GameManager::promptUsersForAbilitySelection() {
         //     std::cerr << "No ability matching " << abilityName << std::endl;
         //     exit(-1); //todo:sp keep prompting while value is invalid
         // }
-        //todo:sp link pokemon to ability
+        //todo:sp link pokemon to ability to use for this round
+        FightManager::getInstance().commenceAttack();
     }
 }
 

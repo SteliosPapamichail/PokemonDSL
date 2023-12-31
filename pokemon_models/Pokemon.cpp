@@ -24,8 +24,14 @@ bool Pokemon::getCanPerformAbility() const { return canPerformAbility; }
 void Pokemon::setCanPerformAbility(const bool newValue) { canPerformAbility = newValue; }
 
 std::ostream& operator<<(std::ostream&os, const Pokemon&pokemon) {
-    os << "[" << PokemonTypeToString(pokemon.getType()) << "]" << " " << pokemon.getName() << " (" << pokemon.getHP() <<
-            "HP)";
+    os << "##########################################" << std::endl;
+    os << "Name: " << pokemon.getName() << std::endl;
+    os << "HP: " << pokemon.getHP() << std::endl;
+    const auto isInPokeballTxt = pokemon.getIsInPokeball() ? "Pokemon in Pokeball" : "Pokemon out of Pokeball";
+    os << isInPokeballTxt << std::endl;
+    // os << "[" << PokemonTypeToString(pokemon.getType()) << "]" << " " << pokemon.getName() << " (" << pokemon.getHP() <<
+    //         "HP)";
+    os << "##########################################" << std::endl;
     return os;
 }
 

@@ -3,9 +3,13 @@
 //
 
 #include "FightManager.h"
+
+#include <iostream>
+
 #include "../game_manager/GameManager.h"
 
-FightManager::FightManager(Pokemon* attacker, Pokemon* defender) : _attacker(attacker), _defender(defender) {}
+FightManager::FightManager(Pokemon* attacker, Pokemon* defender) : _attacker(attacker), _defender(defender) {
+}
 
 
 std::shared_ptr<Pokemon> FightManager::getAttacker() const {
@@ -44,6 +48,8 @@ void FightManager::startRound(const unsigned round) const {
 
 
 void FightManager::commenceAttack() const {
+    // print attacker & defender status using the overloaded operator<<
+    std::cout << *_attacker << "\n\n\n" << *_defender << std::endl;
 }
 
 void FightManager::endRound() const {
