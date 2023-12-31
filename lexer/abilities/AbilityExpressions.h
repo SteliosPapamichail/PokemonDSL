@@ -32,6 +32,8 @@ public:
 
     SingleAbilityExpr operator()(const SingleAbilityExpr&other);
 
+    SingleAbilityExpr* operator,(const SingleAbilityExpr* other);
+
     ~SingleAbilityExpr() = default;
 };
 

@@ -10,14 +10,8 @@ Pokemon SinglePokemonDefExpr::getPokemon() const {
     return _pokemon;
 }
 
-unsigned int SinglePokemonDefExpr::getNumOfChainedPokemonDefs() const {
-    return _numOfChainedPokemonDefs;
-}
-
 SinglePokemonDefExpr* SinglePokemonDefExpr::operator,(const SinglePokemonDefExpr* other) {
-    std::cout << "called comma from " << this->getPokemon().getName() << std::endl;
     GameManager::getInstance().declarePokemon(other->getPokemon());
-    this->_numOfChainedPokemonDefs++;
     return this;
 }
 

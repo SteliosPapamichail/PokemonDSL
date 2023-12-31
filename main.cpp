@@ -28,21 +28,18 @@ BEGIN_GAME
               }
           ]
 
-    CREATE ABILITY {
-        NAME: "Electric_Shock",
-        ACTION: START
-            // IF GET_HP(ATTACKER) < 30 DO
-            //     HEAL ATTACKER 25
-            // ELSE
-            //     HEAL ATTACKER 15
-            // END
-        END
-    }
-    CREATE ABILITY {
-        NAME: "Lightning_Rod",
-        ACTION: START
-        END
-    }
+    CREATE ABILITIES [
+        ABILITY {
+            NAME: "Electric_Shock",
+            ACTION: START
+            END
+        },
+        ABILITY {
+            NAME: "Lightning_Rod",
+            ACTION: START
+            END
+        }
+    ]
     CREATE ABILITY {
         NAME: "Flame_Wheel",
         ACTION: START

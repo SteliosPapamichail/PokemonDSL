@@ -11,7 +11,6 @@
 
 class SinglePokemonDefExpr final : public Expr {
     Pokemon _pokemon;
-    unsigned int _numOfChainedPokemonDefs = 0;
 
 public:
     ~SinglePokemonDefExpr() = default;
@@ -21,8 +20,6 @@ public:
     }
 
     Pokemon getPokemon() const;
-
-    unsigned int getNumOfChainedPokemonDefs() const;
 
     SinglePokemonDefExpr* operator,(const SinglePokemonDefExpr* other);
 

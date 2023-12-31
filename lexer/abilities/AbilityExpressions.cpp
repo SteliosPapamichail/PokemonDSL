@@ -42,3 +42,13 @@ SingleAbilityExpr SingleAbilityExpr::operator()(const SingleAbilityExpr&other) {
     }
     return *this;
 }
+
+SingleAbilityExpr* SingleAbilityExpr::operator,(const SingleAbilityExpr* other) {
+    GameManager::getInstance().declareAbility(*other);
+    return this;
+}
+
+
+MultiAbilityDefExpr* MultiAbilityDefExpr::operator[](const SingleAbilityExpr* abilityExpr) {
+    return this;
+}
