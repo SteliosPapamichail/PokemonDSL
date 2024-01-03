@@ -28,7 +28,5 @@
  * \brief Defines the starting point of the action(s) to be
  * performed when the respective ability is performed.
  */
-#define START new AbilityActionExpr {[]() { \
-        std::cout << "attacker is : " << FightManager::getInstance().getAttacker()->getName() << std::endl; \
-    }
+#define START new AbilityActionExpr {[]() {
 #endif //ABILITYGEN_H

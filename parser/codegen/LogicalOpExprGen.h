@@ -4,6 +4,9 @@
 
 #ifndef LOGICALOPEXPRGEN_H
 #define LOGICALOPEXPRGEN_H
+
+//todo:sp figure out a way to use static_assert to restrict arg size
+
 /**
  * \brief Performs the logical AND action.
  *
@@ -14,7 +17,14 @@
  * AND (GET_TYPE(ATTACKER) == "Electric", GET_HP(ATTACKER) > 20)
  * \endcode
  */
-#define AND
+#define AND(...) \
+    [&]() -> bool { \
+        bool result = true; \
+        std::vector<bool> args = {__VA_ARGS__}; \
+        for (bool arg : args) \
+            result = result && arg; \
+        return result; \
+    }()
 
 /**
  * \brief Performs the logical OR action.
@@ -28,7 +38,14 @@
  *     GET_HP(DEFENDER) <= 20)
  * \endcode
  */
-#define OR
+#define OR(...) \
+ [&]() -> bool { \
+ bool result = true; \
+ std::vector<bool> args = {__VA_ARGS__}; \
+ for (bool arg : args) \
+ result = result || arg; \
+ return result; \
+ }()
 
 /**
  * \brief Performs the logical NOT action.
@@ -40,5 +57,5 @@
  * NOT (AND (GET_HP(DEFENDER) > 20, GET_HP(DEFENDER) < 70))
  * \endcode
  */
-#define NOT
+#define NOT(expr) !expr
 #endif //LOGICALOPEXPRGEN_H

@@ -22,10 +22,10 @@
  */
 #define IF if (
 
-#define ELSE
+#define ELSE }} else {{
 
-#define ELSE_IF
+#define ELSE_IF }} else if (
 
-#define DO ) {
+#define DO ) {{
 
 #endif //IFEXPRGEN_H
