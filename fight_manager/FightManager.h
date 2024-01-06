@@ -45,6 +45,10 @@ public:
 
     void commenceAttack(bool isAttacker) const;
 
+    static std::shared_ptr<Pokemon> damage(std::shared_ptr<Pokemon> receiver);
+
+    static std::shared_ptr<Pokemon> heal(std::shared_ptr<Pokemon> receiver);
+
     FightManager(FightManager const&) = delete;
 
     void operator=(FightManager const&) = delete;

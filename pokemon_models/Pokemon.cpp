@@ -7,6 +7,9 @@
 #include "../lexer/abilities/AbilityExpressions.h"
 #include "Pokemon.h"
 
+#include "../fight_manager/FightManager.h"
+#include "../game_manager/GameManager.h"
+
 
 Ability::Ability(std::string name, const std::function<void()>&action) : _abilityName(std::move(name)),
                                                                          _action(action) {
@@ -128,10 +131,15 @@ bool Pokemon::getIsInPokeball() const {
     return isInPokeball;
 }
 
-void Pokemon::setIsInPokeball(bool placeInPokeball) {
+void Pokemon::setIsInPokeball(const bool placeInPokeball) {
     isInPokeball = placeInPokeball;
 }
 
 unsigned Pokemon::getMaxHP() const {
     return MAX_HP;
+}
+
+Pokemon* Pokemon::operator,(const int amount) {
+    if(amount == -1) return this;
+    return this;
 }

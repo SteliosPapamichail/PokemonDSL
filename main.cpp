@@ -48,21 +48,23 @@ BEGIN_GAME
             NAME: "Lightning_Rod",
             ACTION: START
                 //todo:sp use to test getters
-                // IF GET_NAME(ATTACKER) == "Pikachu" DO
-                //     std::cout << "name of attacker is pikachu" << std::endl;
-                // END
-                // IF GET_HP(DEFENDER) == 200 DO
-                //     std::cout << "Defender is Ho Oh (200 hp)" << std::endl;
-                // END
-                // IF GET_TYPE(DEFENDER) == "Fire" DO
-                //     std::cout << "Defender is fire type" << std::endl;
-                // END
+                IF GET_NAME(ATTACKER) == "Pikachu" DO
+                    std::cout << "name of attacker is pikachu" << std::endl;
+                END
+                IF GET_HP(DEFENDER) == 200 DO
+                    std::cout << "Defender is Ho Oh (200 hp)" << std::endl;
+                    DAMAGE DEFENDER 100
+                END
+                IF GET_TYPE(DEFENDER) == "Fire" DO
+                    std::cout << "Defender is fire type" << std::endl;
+                END
             END
         }
     ]
     CREATE ABILITY {
         NAME: "Flame_Wheel",
         ACTION: START
+            // DEFENDER 20
         END
     }
     DEAR "Pikachu" LEARN [

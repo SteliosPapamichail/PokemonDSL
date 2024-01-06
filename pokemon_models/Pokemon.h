@@ -61,6 +61,8 @@ public:
 
     Pokemon operator[](const SingleAbilityExpr& ability);
 
+    Pokemon* operator,(int amount);
+
     void takeDamage(unsigned int damage, POKEMON_TYPE attackerType, unsigned int round);
 
     void heal(unsigned int amount);

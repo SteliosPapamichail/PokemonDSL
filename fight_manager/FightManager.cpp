@@ -84,3 +84,14 @@ void FightManager::checkEndGameConditions() const {
         GameManager::getInstance().setIsGameOver(true);
     }
 }
+
+std::shared_ptr<Pokemon> FightManager::damage(std::shared_ptr<Pokemon> receiver) {
+    receiver->takeDamage(amount, getInstance().getAttacker()->getType(), GameManager::getInstance().getRound());
+    return receiver;
+}
+
+std::shared_ptr<Pokemon> FightManager::heal(std::shared_ptr<Pokemon> receiver) {
+    receiver->heal(amount);
+    return receiver;
+}
+
