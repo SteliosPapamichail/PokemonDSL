@@ -47,7 +47,12 @@ BEGIN_GAME
         ABILITY {
             NAME: "Lightning_Rod",
             ACTION: START
-                DAMAGE ATTACKER 200
+                //SHOW IS_IN_POKEBALL(DEFENDER) << std::endl;
+                POKEBALL DEFENDER _
+                // SHOW IS_IN_POKEBALL(DEFENDER) << std::endl;
+                // POKEBALL DEFENDER ---α
+                // SHOW IS_IN_POKEBALL(DEFENDER) << std::endl;
+                //DAMAGE ATTACKER 200
                 //todo:sp use to test getters
                 // IF GET_NAME(ATTACKER) == "Pikachu" DO
                 //     std::cout << "name of attacker is pikachu" << std::endl;

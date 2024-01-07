@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include <ostream>
-#include <stdexcept>
 #include <string>
 #include "../lexer/abilities/AbilityExpressions.h"
 #include "../game_manager/GameManager.h"
@@ -58,4 +57,5 @@ inline bool containsSpace(const std::string&strToCheck) {
     }
     return false;
 }
+
 #endif //UTILS_H

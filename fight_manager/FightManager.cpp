@@ -51,10 +51,10 @@ void FightManager::startRound() const {
     // heal pokemons if conditions are met at the beginning of the round
     if (GameManager::getInstance().getRound() % 2 == 0) {
         if (_attacker->getType() == Grass) {
-            healPokemon(_attacker,0.05 * _attacker->getMaxHP());
+            healPokemon(_attacker, 0.05 * _attacker->getMaxHP());
         }
         if (_defender->getType() == Grass) {
-            healPokemon(_defender,0.05 * _attacker->getMaxHP());
+            healPokemon(_defender, 0.05 * _attacker->getMaxHP());
         }
     }
 }
@@ -97,5 +97,10 @@ std::shared_ptr<Pokemon> FightManager::damage(std::shared_ptr<Pokemon> receiver)
 
 std::shared_ptr<Pokemon> FightManager::heal(std::shared_ptr<Pokemon> receiver) {
     receiver->setShouldHeal(true);
+    return receiver;
+}
+
+std::shared_ptr<Pokemon> FightManager::setPokeballStatus(std::shared_ptr<Pokemon> receiver) {
+    receiver->setEditingPokeballStatus(true);
     return receiver;
 }

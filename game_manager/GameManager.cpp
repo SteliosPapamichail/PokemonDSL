@@ -103,6 +103,12 @@ void GameManager::promptUsersForAbilitySelection() {
     while (!_isGameOver) {
         printRoundHeader();
         for (const auto p: _players) {
+            if (p->getPlayerPokemon()->getIsInPokeball()) {
+                std::cout << "\n\n" << p->getName() << "(" << p->getPlayerPokemon()->getName() <<
+                        ") doesn\'t have a Pokemon out of a Pokeball so they cannot cast an ability.\n\n" << std::endl;
+                continue;
+            }
+
             std::string abilityName;
             std::cout << p->getPlayerPokemon()->getName() << "(" << p->getName() << ") select an ability:" << std::endl;
             std::cout << "----------------------------------------------" << std::endl;

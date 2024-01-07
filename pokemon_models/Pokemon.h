@@ -8,9 +8,9 @@
 #include <string>
 #include <vector>
 
-
 #include "../utils/PokemonUtils.h"
 
+class a;
 class SingleAbilityExpr;
 
 class Ability final {
@@ -35,6 +35,7 @@ class Pokemon final {
     std::vector<Ability> _learnedAbilities = {};
     bool _shouldTakeDmg = false;
     bool _shouldHeal = false;
+    bool _editingPokeballStatus = false;
 
     void learnAbility(const Ability&ability);
 
@@ -48,6 +49,10 @@ public:
     void setShouldHeal(bool heal);
 
     void setShouldTakeDmg(bool takeDmg);
+
+    void setEditingPokeballStatus(bool editing);
+
+    bool getEditingPokeballStatus() const;
 
     bool getShouldTakeDmg() const;
 
@@ -80,6 +85,10 @@ public:
     Pokemon* operator,(int amount);
 
     Pokemon* operator+=(int amount);
+
+    Pokemon* operator+=(const a& _a);
+
+    Pokemon* operator+=(const bool putInPokeball);
 
     bool hasBeenDefeated() const;
 

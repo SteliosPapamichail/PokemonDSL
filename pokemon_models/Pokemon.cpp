@@ -161,6 +161,14 @@ void Pokemon::setShouldTakeDmg(const bool takeDmg) {
     _shouldTakeDmg = takeDmg;
 }
 
+bool Pokemon::getEditingPokeballStatus() const {
+    return _editingPokeballStatus;
+}
+
+void Pokemon::setEditingPokeballStatus(const bool editing) {
+    _editingPokeballStatus = editing;
+}
+
 Pokemon* Pokemon::operator+=(const int amount) {
     assert(!(_shouldHeal && _shouldTakeDmg));
     if (_shouldTakeDmg) {
@@ -173,3 +181,16 @@ Pokemon* Pokemon::operator+=(const int amount) {
     }
     return this;
 }
+
+Pokemon* Pokemon::operator+=(const a&_a) {
+    this->setIsInPokeball(false);
+    this->setEditingPokeballStatus(false);
+    return this;
+}
+
+Pokemon* Pokemon::operator+=(const bool putInPokeball) {
+    this->setIsInPokeball(putInPokeball);
+    this->setEditingPokeballStatus(false);
+    return this;
+}
+

@@ -33,4 +33,6 @@ add_executable(PokemonLeague_4020 main.cpp
         parser/codegen/IfExprGen.h
         parser/codegen/LogicalOpExprGen.h
         parser/codegen/AbilityLearning.h
-        parser/codegen/ActionsGen.h)
+        parser/codegen/ActionsGen.h
+        utils/PokeballManagementUtils.cpp
+        utils/PokeballManagementUtils.h)

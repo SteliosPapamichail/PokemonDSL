@@ -51,6 +51,8 @@ public:
 
     static std::shared_ptr<Pokemon> heal(std::shared_ptr<Pokemon> receiver);
 
+    static std::shared_ptr<Pokemon> setPokeballStatus(std::shared_ptr<Pokemon> receiver);
+
     FightManager(FightManager const&) = delete;
 
     void operator=(FightManager const&) = delete;

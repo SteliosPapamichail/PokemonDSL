@@ -5,6 +5,8 @@
 #ifndef ACTIONSGEN_H
 #define ACTIONSGEN_H
 
+#include "../../utils/PokeballManagementUtils.h"
+
 /**
  * \brief Returns the attacking pokemon in the current round.
  */
@@ -57,6 +59,16 @@
  * * pokemon from/in the Pokeball.
  * Format: POKEBALL ATTACKER/DEFENDER (option)
  */
-#define POKEBALL
+#define POKEBALL ;*FightManager::setPokeballStatus(
+
+/**
+ * \brief
+ */
+#define α a()
+
+/**
+ * \brief
+ */
+#define _ true
 
 #endif //ACTIONSGEN_H
