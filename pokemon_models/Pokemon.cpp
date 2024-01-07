@@ -7,6 +7,8 @@
 #include "../lexer/abilities/AbilityExpressions.h"
 #include "Pokemon.h"
 
+#include <cassert>
+
 #include "../fight_manager/FightManager.h"
 #include "../game_manager/GameManager.h"
 
@@ -24,7 +26,6 @@ std::function<void()> Ability::getAction() const {
 }
 
 
-
 std::string Pokemon::getName() const { return name; }
 POKEMON_TYPE Pokemon::getType() const { return type; }
 unsigned int Pokemon::getHP() const { return hp; }
@@ -37,8 +38,6 @@ std::ostream& operator<<(std::ostream&os, const Pokemon&pokemon) {
     os << "HP: " << pokemon.getHP() << std::endl;
     const auto isInPokeballTxt = pokemon.getIsInPokeball() ? "Pokemon in Pokeball" : "Pokemon out of Pokeball";
     os << isInPokeballTxt << std::endl;
-    // os << "[" << PokemonTypeToString(pokemon.getType()) << "]" << " " << pokemon.getName() << " (" << pokemon.getHP() <<
-    //         "HP)";
     os << "##########################################" << std::endl;
     return os;
 }
@@ -82,6 +81,7 @@ Pokemon::Pokemon(std::string name, const POKEMON_TYPE type, const unsigned int h
 void Pokemon::takeDamage(const unsigned int damage, const POKEMON_TYPE attackerType, const unsigned int round) {
     auto damageToTake = 0;
 
+    // calculate damage based on effects
     if (this->getType() == Electric) {
         if (attackerType == Fire) {
             // 30% less damage
@@ -108,7 +108,8 @@ void Pokemon::takeDamage(const unsigned int damage, const POKEMON_TYPE attackerT
         damageToTake += 0.07 * damage;
     }
 
-    if (hp - damageToTake <= 0) {
+    // apply damage
+    if (damageToTake > hp) {
         hp = 0;
     }
     else {
@@ -140,6 +141,35 @@ unsigned Pokemon::getMaxHP() const {
 }
 
 Pokemon* Pokemon::operator,(const int amount) {
-    if(amount == -1) return this;
+    if (amount == -1) return this;
+    return this;
+}
+
+bool Pokemon::getShouldHeal() const {
+    return _shouldHeal;
+}
+
+bool Pokemon::getShouldTakeDmg() const {
+    return _shouldTakeDmg;
+}
+
+void Pokemon::setShouldHeal(const bool heal) {
+    _shouldHeal = heal;
+}
+
+void Pokemon::setShouldTakeDmg(const bool takeDmg) {
+    _shouldTakeDmg = takeDmg;
+}
+
+Pokemon* Pokemon::operator+=(const int amount) {
+    assert(!(_shouldHeal && _shouldTakeDmg));
+    if (_shouldTakeDmg) {
+        takeDamage(amount, FightManager::getInstance().getAttacker()->getType(), GameManager::getInstance().getRound());
+        _shouldTakeDmg = false;
+    }
+    else if (_shouldHeal) {
+        heal(amount);
+        _shouldHeal = false;
+    }
     return this;
 }

@@ -51,12 +51,17 @@ void FightManager::startRound() const {
     // heal pokemons if conditions are met at the beginning of the round
     if (GameManager::getInstance().getRound() % 2 == 0) {
         if (_attacker->getType() == Grass) {
-            _attacker->heal(0.05 * _attacker->getMaxHP());
+            healPokemon(_attacker,0.05 * _attacker->getMaxHP());
         }
         if (_defender->getType() == Grass) {
-            _defender->heal(0.05 * _defender->getMaxHP());
+            healPokemon(_defender,0.05 * _attacker->getMaxHP());
         }
     }
+}
+
+void FightManager::healPokemon(const std::shared_ptr<Pokemon>&pokemon, const int amount) {
+    pokemon->setShouldHeal(true);
+    (*pokemon) += amount;
 }
 
 
@@ -80,18 +85,17 @@ void FightManager::commenceAttack(const bool isAttacker) const {
 }
 
 void FightManager::checkEndGameConditions() const {
-    if (_attacker->getHP() == 0 || _defender->getHP() == 0) {
+    if (_attacker->hasBeenDefeated() || _defender->hasBeenDefeated()) {
         GameManager::getInstance().setIsGameOver(true);
     }
 }
 
 std::shared_ptr<Pokemon> FightManager::damage(std::shared_ptr<Pokemon> receiver) {
-    receiver->takeDamage(amount, getInstance().getAttacker()->getType(), GameManager::getInstance().getRound());
+    receiver->setShouldTakeDmg(true);
     return receiver;
 }
 
 std::shared_ptr<Pokemon> FightManager::heal(std::shared_ptr<Pokemon> receiver) {
-    receiver->heal(amount);
+    receiver->setShouldHeal(true);
     return receiver;
 }
-

@@ -26,6 +26,8 @@ class FightManager final {
 
     void checkEndGameConditions() const;
 
+    static void healPokemon(const std::shared_ptr<Pokemon>&pokemon, int amount);
+
 public:
     static FightManager& getInstance();
 

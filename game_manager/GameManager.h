@@ -35,7 +35,7 @@ class GameManager final {
 
     void printRoundHeader() const;
 
-    void declareWinner();
+    void declareWinner() const;
 
 public:
     std::vector<std::shared_ptr<Pokemon>> getDeclaredPokemons() const;

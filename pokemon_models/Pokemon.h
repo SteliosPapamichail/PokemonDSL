@@ -19,7 +19,9 @@ class Ability final {
 
 public:
     Ability(std::string name, const std::function<void()>&action);
+
     std::string getAbilityName() const;
+
     std::function<void()> getAction() const;
 };
 
@@ -31,11 +33,25 @@ class Pokemon final {
     bool canPerformAbility = true;
     bool isInPokeball = false;
     std::vector<Ability> _learnedAbilities = {};
+    bool _shouldTakeDmg = false;
+    bool _shouldHeal = false;
 
     void learnAbility(const Ability&ability);
 
+    void takeDamage(unsigned int damage, POKEMON_TYPE attackerType, unsigned int round);
+
+    void heal(unsigned int amount);
+
 public:
     friend std::ostream& operator<<(std::ostream&os, const Pokemon&pokemon);
+
+    void setShouldHeal(bool heal);
+
+    void setShouldTakeDmg(bool takeDmg);
+
+    bool getShouldTakeDmg() const;
+
+    bool getShouldHeal() const;
 
     std::string getName() const;
 
@@ -59,13 +75,11 @@ public:
 
     Pokemon(std::string name, POKEMON_TYPE type, unsigned int hp);
 
-    Pokemon operator[](const SingleAbilityExpr& ability);
+    Pokemon operator[](const SingleAbilityExpr&ability);
 
     Pokemon* operator,(int amount);
 
-    void takeDamage(unsigned int damage, POKEMON_TYPE attackerType, unsigned int round);
-
-    void heal(unsigned int amount);
+    Pokemon* operator+=(int amount);
 
     bool hasBeenDefeated() const;
 

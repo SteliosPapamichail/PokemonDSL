@@ -77,7 +77,6 @@ void GameManager::setIsGameOver(const bool isOver) {
     _isGameOver = isOver;
 }
 
-
 void GameManager::initiateFight() {
     FightManager::getInstance().setAttacker(_activePlayer->getPlayerPokemon());
     FightManager::getInstance().setDefender(getInactivePlayer()->getPlayerPokemon());
@@ -90,12 +89,18 @@ void GameManager::printRoundHeader() const {
     std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 }
 
-void GameManager::declareWinner() {
-    //TODO(implement);
+void GameManager::declareWinner() const {
+    //todo:sp revisit the logic here since once loops are implemented, a pokemon may die due to a post-round effect
+    //todo:sp so the winner may not be the active player
+    const auto winner = _activePlayer;
+    std::cout << "\n\n==============================================" << std::endl;
+    std::cout << winner->getName() << "(" << winner->getPlayerPokemon()->getName() << ") has won!" <<
+            std::endl;
+    std::cout << "==============================================" << std::endl;
 }
 
 void GameManager::promptUsersForAbilitySelection() {
-    while(!_isGameOver) {
+    while (!_isGameOver) {
         printRoundHeader();
         for (const auto p: _players) {
             std::string abilityName;
@@ -106,7 +111,7 @@ void GameManager::promptUsersForAbilitySelection() {
             std::getline(std::cin, abilityName);
 
             const auto selectedAbility = getAbilityByName(abilityName);
-            const auto abilityToAssign = new Ability {
+            const auto abilityToAssign = new Ability{
                 selectedAbility->getAbilityName(),
                 selectedAbility->getAbilityAction()
             };
@@ -122,12 +127,12 @@ void GameManager::promptUsersForAbilitySelection() {
             }
             else {
                 FightManager::getInstance().setDefenderAbility(
-                   abilityToAssign
+                    abilityToAssign
                 );
             }
             FightManager::getInstance().commenceAttack(isAttacker);
 
-            if(_isGameOver) break;
+            if (_isGameOver) break;
         }
         nextRound();
     }
