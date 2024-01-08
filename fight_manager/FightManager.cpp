@@ -57,7 +57,23 @@ void FightManager::startRound() const {
             healPokemon(_defender, 0.05 * _attacker->getMaxHP());
         }
     }
+    executeEffects();
 }
+
+void FightManager::cleanUp() {
+    for (const auto effect: effects) {
+        delete effect;
+    }
+}
+
+
+void FightManager::executeEffects() {
+    for (const auto effect: effects) {
+        if (effect->isComplete()) continue;
+        effect->tick();
+    }
+}
+
 
 void FightManager::healPokemon(const std::shared_ptr<Pokemon>&pokemon, const int amount) {
     pokemon->setShouldHeal(true);

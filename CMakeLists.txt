@@ -35,4 +35,6 @@ add_executable(PokemonLeague_4020 main.cpp
         parser/codegen/AbilityLearning.h
         parser/codegen/ActionsGen.h
         utils/PokeballManagementUtils.cpp
-        utils/PokeballManagementUtils.h)
+        utils/PokeballManagementUtils.h
+        lexer/effects/ActionEffects.cpp
+        lexer/effects/ActionEffects.h)

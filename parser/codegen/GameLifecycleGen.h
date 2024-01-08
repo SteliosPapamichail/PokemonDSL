@@ -23,10 +23,11 @@ Expr* expr
  * \brief Prints any errors to the std::cerr stream and ends the game.
  */
 #define END_GAME ; \
-ErrorHandler& errorHandler =  ErrorHandler::getInstance();\
-errorHandler.printErrors();\
-return errorHandler.getErrors().empty() ? 0 : -1; \
-}
+ FightManager::cleanUp();\
+ ErrorHandler& errorHandler =  ErrorHandler::getInstance();\
+ errorHandler.printErrors();\
+ return errorHandler.getErrors().empty() ? 0 : -1; \
+ }
 
 /**
  * \brief Begins the pokemon duel.

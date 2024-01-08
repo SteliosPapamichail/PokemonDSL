@@ -6,6 +6,7 @@
 #define ACTIONSGEN_H
 
 #include "../../utils/PokeballManagementUtils.h"
+#include "../../lexer/effects/ActionEffects.h"
 
 /**
  * \brief Returns the attacking pokemon in the current round.
@@ -70,5 +71,11 @@
  * \brief
  */
 #define _ true
+
+#define AFTER ;FightManager::effects + new DelayedEffect {
+
+#define FOR ;FightManager::effects + new ActiveEffect {
+
+#define ROUNDS ,[](
 
 #endif //ACTIONSGEN_H

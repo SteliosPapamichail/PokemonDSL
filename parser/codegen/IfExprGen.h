@@ -20,7 +20,7 @@
 /**
  * \brief
  */
-#define IF if (
+#define IF ;if (
 
 #define ELSE }} else {{
 

@@ -6,6 +6,7 @@
 #define FIGHTMANAGER_H
 #include <memory>
 
+#include "../lexer/effects/ActionEffects.h"
 #include "../pokemon_models/Pokemon.h"
 
 class Ability;
@@ -28,8 +29,14 @@ class FightManager final {
 
     static void healPokemon(const std::shared_ptr<Pokemon>&pokemon, int amount);
 
+    static void executeEffects();
+
 public:
     static FightManager& getInstance();
+
+    static std::vector<RepeatableEffect*> effects;
+
+    static void cleanUp();
 
     std::shared_ptr<Pokemon> getAttacker() const;
 

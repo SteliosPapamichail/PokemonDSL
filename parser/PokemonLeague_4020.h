@@ -32,9 +32,6 @@
 #define NAME \
     false ? ""
 
-//todo:sp this will need to either emit one "}" or two depending on if it
-// is the END closing the START expression (after adjusting the START macro).
-//TODO("Need to keep track of nested END macros (maybe track actual and expecred values seperately?)")
 #define END ;}}
 
 // ---------------- END COMMON EXPRESSIONS ----------------
