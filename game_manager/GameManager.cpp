@@ -9,24 +9,9 @@
 #include "../fight_manager/FightManager.h"
 
 GameManager::GameManager() : _round(1) {
-    _activePlayer = _players[generateRandomBinary()];
+    _activePlayer = _players[0];
     _activePlayer->beginTurn();
 } ;
-
-
-int GameManager::generateRandomBinary() {
-    // Use std::random_device to seed the generator
-    std::random_device rd;
-
-    // Use std::mt19937 as the random number generator engine
-    std::mt19937 gen(rd());
-
-    // Use std::uniform_int_distribution to generate a random number in the range [0, 1]
-    std::uniform_int_distribution<> distribution(0, 1);
-
-    // Generate a random number
-    return distribution(gen);
-}
 
 GameManager& GameManager::getInstance() {
     static GameManager instance;
@@ -36,17 +21,13 @@ GameManager& GameManager::getInstance() {
 void GameManager::promptUsersForPokemonSelection() {
     for (const auto p: _players) {
         std::string pokemonName;
-        std::cout << p->getName() << " select pokemon:" << std::endl;
+        std::cout << p->getName() << " select pokemon:\n" << std::endl;
         std::cout << "----------------------------------------------" << std::endl;
         printDeclaredPokemons();
         std::cout << "----------------------------------------------" << std::endl;
         std::getline(std::cin, pokemonName);
 
         const auto selectedPokemon = getPokemonByName(pokemonName);
-        // if (selectedPokemon == nullptr) {
-        //     std::cerr << "No pokemon matching " << pokemonName << std::endl;
-        //     exit(-1); //todo:sp keep prompting while value is invalid
-        // }
         p->setSelectedPokemon(selectedPokemon);
     }
     initiateFight();
@@ -54,7 +35,11 @@ void GameManager::promptUsersForPokemonSelection() {
 
 
 void GameManager::changeTurns() {
-    _activePlayer = _players[0]->hasTurn() ? _players[1] : _players[0];
+    getInactivePlayer()->beginTurn();
+    _activePlayer->endTurn();
+    _activePlayer = _players[0]->hasTurn() ? _players[0] : _players[1];
+    FightManager::getInstance().setAttacker(_activePlayer->getPlayerPokemon());
+    FightManager::getInstance().setDefender(getInactivePlayer()->getPlayerPokemon());
 }
 
 unsigned GameManager::getRound() const {
@@ -90,13 +75,11 @@ void GameManager::printRoundHeader() const {
 }
 
 void GameManager::declareWinner() const {
-    //todo:sp revisit the logic here since once loops are implemented, a pokemon may die due to a post-round effect
-    //todo:sp so the winner may not be the active player
-    const auto winner = _activePlayer;
+    const auto winner = _activePlayer->getPlayerPokemon()->hasBeenDefeated() ? getInactivePlayer() : _activePlayer;
     std::cout << "\n\n==============================================" << std::endl;
-    std::cout << winner->getName() << "(" << winner->getPlayerPokemon()->getName() << ") has won!" <<
+    std::cout << GREEN_TEXT << winner->getName() << "(" << winner->getPlayerPokemon()->getName() << ") has won!" << RESET_TEXT <<
             std::endl;
-    std::cout << "==============================================" << std::endl;
+    std::cout << "==============================================\n" << std::endl;
 }
 
 void GameManager::promptUsersForAbilitySelection() {
@@ -105,13 +88,14 @@ void GameManager::promptUsersForAbilitySelection() {
         FightManager::getInstance().startRound();
         for (const auto p: _players) {
             if (p->getPlayerPokemon()->getIsInPokeball()) {
-                std::cout << "\n\n" << p->getName() << "(" << p->getPlayerPokemon()->getName() <<
-                        ") doesn\'t have a Pokemon out of a Pokeball so they cannot cast an ability.\n\n" << std::endl;
+                std::cout << RED_TEXT << "\n\n" << p->getName() << "(" << p->getPlayerPokemon()->getName() <<
+                        ") doesn\'t have a Pokemon out of a Pokeball so they cannot cast an ability.\n\n" << RESET_TEXT << std::endl;
+                changeTurns();
                 continue;
             }
 
             std::string abilityName;
-            std::cout << p->getPlayerPokemon()->getName() << "(" << p->getName() << ") select an ability:" << std::endl;
+            std::cout << p->getPlayerPokemon()->getName() << "(" << p->getName() << ") select an ability:\n" << std::endl;
             std::cout << "----------------------------------------------" << std::endl;
             p->getPlayerPokemon()->printLearnedAbilities();
             std::cout << "----------------------------------------------" << std::endl;
@@ -122,28 +106,18 @@ void GameManager::promptUsersForAbilitySelection() {
                 selectedAbility->getAbilityName(),
                 selectedAbility->getAbilityAction()
             };
-            // if (selectedAbility == nullptr) {
-            //     std::cerr << "No ability matching " << abilityName << std::endl;
-            //     exit(-1); //todo:sp keep prompting while value is invalid
-            // }
-            const auto isAttacker = FightManager::getInstance().getAttacker() == p->getPlayerPokemon();
-            if (isAttacker) {
-                FightManager::getInstance().setAttackerAbility(
-                    abilityToAssign
-                );
-            }
-            else {
-                FightManager::getInstance().setDefenderAbility(
-                    abilityToAssign
-                );
-            }
-            FightManager::getInstance().commenceAttack(isAttacker);
+
+            FightManager::getInstance().setAttackerAbility(
+                abilityToAssign
+            );
+            FightManager::getInstance().commenceAttack();
 
             if (_isGameOver) break;
+
+            changeTurns();
         }
         nextRound();
     }
-    //todo:sp print winner
     declareWinner();
 }
 

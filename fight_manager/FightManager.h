@@ -17,7 +17,6 @@ class FightManager final {
     std::shared_ptr<Pokemon> _defender = nullptr;
 
     std::unique_ptr<Ability> _attackerAbility = nullptr;
-    std::unique_ptr<Ability> _defenderAbility = nullptr;
 
     FightManager() = default;
 
@@ -48,11 +47,9 @@ public:
 
     void setAttackerAbility(Ability* ability);
 
-    void setDefenderAbility(Ability* ability);
-
     void startRound() const;
 
-    void commenceAttack(bool isAttacker) const;
+    void commenceAttack() const;
 
     static std::shared_ptr<Pokemon> damage(std::shared_ptr<Pokemon> receiver);
 

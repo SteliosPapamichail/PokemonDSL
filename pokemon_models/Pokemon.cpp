@@ -79,7 +79,7 @@ Pokemon::Pokemon(std::string name, const POKEMON_TYPE type, const unsigned int h
 }
 
 void Pokemon::takeDamage(const unsigned int damage, const POKEMON_TYPE attackerType, const unsigned int round) {
-    auto damageToTake = 0;
+    auto damageToTake = damage;
 
     // calculate damage based on effects
     if (this->getType() == Electric) {

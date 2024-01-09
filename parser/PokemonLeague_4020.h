@@ -13,7 +13,6 @@
 #include "handlers/ErrorHandler.h"
 #include "../game_manager/GameManager.h"
 #include "../fight_manager/FightManager.h"
-#include "../scope_manager/ScopeManager.h"
 #include "codegen/GameLifecycleGen.h"
 #include "codegen/AbilityLearning.h"
 #include "codegen/PokemonGen.h"

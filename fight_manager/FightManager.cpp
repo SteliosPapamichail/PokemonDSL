@@ -6,7 +6,7 @@
 
 #include <algorithm>
 #include <iostream>
-
+#include "../utils/Utils.h"
 #include "../game_manager/GameManager.h"
 
 std::vector<RepeatableEffect *> FightManager::effects;
@@ -16,17 +16,11 @@ FightManager::FightManager(Pokemon* attacker, Pokemon* defender) : _attacker(att
 
 void FightManager::clearSelectedAbilities() {
     _attackerAbility = nullptr;
-    _defenderAbility = nullptr;
 }
 
 void FightManager::setAttackerAbility(Ability* ability) {
     _attackerAbility = std::unique_ptr<Ability>(ability);
 }
-
-void FightManager::setDefenderAbility(Ability* ability) {
-    _defenderAbility = std::unique_ptr<Ability>(ability);
-}
-
 
 std::shared_ptr<Pokemon> FightManager::getAttacker() const {
     return _attacker;
@@ -74,7 +68,7 @@ void FightManager::executeEffects() {
     const bool hasIncompleteEffect = std::any_of(effects.begin(), effects.end(), [](const RepeatableEffect* effect) {
         return !effect->isComplete();
     });
-    if(hasIncompleteEffect) std::cout << "-=- Battle effects are active -=-" << std::endl;
+    if (hasIncompleteEffect) std::cout << YELLOW_TEXT << "\n-=- Battle effects are active -=-\n" << RESET_TEXT << std::endl;
 
     for (const auto effect: effects) {
         if (effect->isComplete()) continue;
@@ -91,21 +85,12 @@ void FightManager::healPokemon(const std::shared_ptr<Pokemon>&pokemon, const int
 
 //todo:sp can obviously be improved by moving the code-block into a function to
 //avoid duplication of code but ain't nobody got time for that
-void FightManager::commenceAttack(const bool isAttacker) const {
+void FightManager::commenceAttack() const {
     // execute the selected ability
-    // and activate any effects
-    if (isAttacker) {
-        _attackerAbility->getAction()();
-        std::cout << "\n~ " << _attacker->getName() << " used " << _attackerAbility->getAbilityName() << " ~\n" <<
-                std::endl;
-        std::cout << *_attacker << "\n\n\n" << *_defender << std::endl;
-    }
-    else {
-        _defenderAbility->getAction()();
-        std::cout << "\n~ " << _defender->getName() << " used " << _defenderAbility->getAbilityName() << " ~\n" <<
-                std::endl;
-        std::cout << *_defender << "\n\n\n" << *_attacker << std::endl;
-    }
+    _attackerAbility->getAction()();
+    std::cout << BLUE_TEXT << "\n~ " << _attacker->getName() << " used " << _attackerAbility->getAbilityName() << " ~\n" << RESET_TEXT <<
+            std::endl;
+    std::cout << *_attacker << "\n\n" << *_defender << std::endl;
     checkEndGameConditions();
 }
 

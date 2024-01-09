@@ -23,8 +23,6 @@ class GameManager final {
     unsigned int _round;
     bool _isGameOver = false;
 
-    static int generateRandomBinary();
-
     GameManager();
 
     Player* getInactivePlayer() const;

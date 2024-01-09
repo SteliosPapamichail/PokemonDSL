@@ -37,6 +37,4 @@ add_executable(PokemonLeague_4020 main.cpp
         utils/PokeballManagementUtils.cpp
         utils/PokeballManagementUtils.h
         lexer/effects/ActionEffects.cpp
-        lexer/effects/ActionEffects.h
-        scope_manager/ScopeManager.cpp
-        scope_manager/ScopeManager.h)
+        lexer/effects/ActionEffects.h)
