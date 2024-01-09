@@ -82,9 +82,6 @@ void FightManager::healPokemon(const std::shared_ptr<Pokemon>&pokemon, const int
     (*pokemon) += amount;
 }
 
-
-//todo:sp can obviously be improved by moving the code-block into a function to
-//avoid duplication of code but ain't nobody got time for that
 void FightManager::commenceAttack() const {
     // execute the selected ability
     _attackerAbility->getAction()();
