@@ -14,7 +14,16 @@ void RepeatableEffect::applyEffect() const {
     _action();
 }
 
-void ActiveEffect::tick() override {
+ActiveEffect::ActiveEffect(const unsigned rounds, const std::function<void()>&f) : RepeatableEffect(rounds, f) {
+    tick();
+}
+
+DelayedEffect::DelayedEffect(const unsigned rounds, const std::function<void()>&f) : RepeatableEffect(rounds, f) {
+    tick();
+}
+
+
+void ActiveEffect::tick() {
     if (_numOfRounds > 0) {
         applyEffect();
         --_numOfRounds;
@@ -24,7 +33,7 @@ void ActiveEffect::tick() override {
     }
 }
 
-void DelayedEffect::tick() override {
+void DelayedEffect::tick() {
     if (_numOfRounds == 0) {
         applyEffect();
         _isComplete = true;

@@ -11,6 +11,7 @@
 #include "../lexer/abilities/AbilityExpressions.h"
 #include "../game_manager/GameManager.h"
 
+
 inline bool doesPokemonNameExist(const std::string&nameToCheck) {
     for (const auto&pokemon: GameManager::getInstance().getDeclaredPokemons()) {
         if (pokemon->getName() == nameToCheck) {

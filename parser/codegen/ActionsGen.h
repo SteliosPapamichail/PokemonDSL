@@ -72,9 +72,9 @@
  */
 #define _ true
 
-#define AFTER ;FightManager::effects + new DelayedEffect {
+#define AFTER ; FightManager::effects + new DelayedEffect {
 
-#define FOR ;FightManager::effects + new ActiveEffect {
+#define FOR ; FightManager::effects + new ActiveEffect {
 
 #define ROUNDS ,[](
 

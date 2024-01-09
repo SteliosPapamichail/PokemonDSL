@@ -102,6 +102,7 @@ void GameManager::declareWinner() const {
 void GameManager::promptUsersForAbilitySelection() {
     while (!_isGameOver) {
         printRoundHeader();
+        FightManager::getInstance().startRound();
         for (const auto p: _players) {
             if (p->getPlayerPokemon()->getIsInPokeball()) {
                 std::cout << "\n\n" << p->getName() << "(" << p->getPlayerPokemon()->getName() <<

@@ -34,6 +34,7 @@ BEGIN_GAME
             ACTION: START
                 FOR 5 ROUNDS DO
                     DAMAGE DEFENDER 10
+                    SHOW "Calling for loop" << std::endl;
                 END
             END
         },
@@ -41,14 +42,13 @@ BEGIN_GAME
             NAME: "Lightning_Rod",
             ACTION: START
                 IF GET_NAME(ATTACKER) == "Pikachu" DO
-                    std::cout << "name of attacker is pikachu" << std::endl;
+                    SHOW "name of attacker is pikachu" << std::endl;
                 END
                 IF GET_HP(DEFENDER) == 200 DO
-                    std::cout << "Defender is Ho Oh (200 hp)" << std::endl;
-                    DAMAGE DEFENDER 100
+                    SHOW "Defender is Ho Oh (200 hp)" << std::endl;
                 END
                 IF GET_TYPE(DEFENDER) == "Fire" DO
-                    std::cout << "Defender is fire type" << std::endl;
+                    SHOW "Defender is fire type" << std::endl;
                 END
             END
         }
@@ -56,8 +56,19 @@ BEGIN_GAME
     CREATE ABILITY {
         NAME: "Flame_Wheel",
         ACTION: START
-            HEAL ATTACKER 20
+            AFTER 2 ROUNDS DO
+                DAMAGE ATTACKER 60
+                SHOW "Applying after effect" << std::endl;
+            END
         END
+    }
+    CREATE ABILITY {
+        NAME: "Ember",
+        ACTION: START
+            AFTER 3 ROUNDS DO
+                SHOW "EMBER called" << std::endl;
+        END
+    END
     }
     DEAR "Pikachu" LEARN [
         ABILITY_NAME(Electric_Shock)
@@ -65,6 +76,7 @@ BEGIN_GAME
     ]
     DEAR "Ho Oh" LEARN [
         ABILITY_NAME(Flame_Wheel)
+        ABILITY_NAME(Ember)
     ]
     DUEL
 END_GAME

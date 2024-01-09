@@ -20,12 +20,13 @@
 /**
  * \brief
  */
-#define IF ;if (
+#define IF ; {if(
 
-#define ELSE }} else {{
 
-#define ELSE_IF }} else if (
+#define ELSE_IF ;} else if (
 
-#define DO ) {{
+#define ELSE ;} else {
+
+#define DO ) {
 
 #endif //IFEXPRGEN_H

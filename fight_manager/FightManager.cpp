@@ -4,9 +4,12 @@
 
 #include "FightManager.h"
 
+#include <algorithm>
 #include <iostream>
 
 #include "../game_manager/GameManager.h"
+
+std::vector<RepeatableEffect *> FightManager::effects;
 
 FightManager::FightManager(Pokemon* attacker, Pokemon* defender) : _attacker(attacker), _defender(defender) {
 }
@@ -68,6 +71,11 @@ void FightManager::cleanUp() {
 
 
 void FightManager::executeEffects() {
+    const bool hasIncompleteEffect = std::any_of(effects.begin(), effects.end(), [](const RepeatableEffect* effect) {
+        return !effect->isComplete();
+    });
+    if(hasIncompleteEffect) std::cout << "-=- Battle effects are active -=-" << std::endl;
+
     for (const auto effect: effects) {
         if (effect->isComplete()) continue;
         effect->tick();
@@ -85,6 +93,7 @@ void FightManager::healPokemon(const std::shared_ptr<Pokemon>&pokemon, const int
 //avoid duplication of code but ain't nobody got time for that
 void FightManager::commenceAttack(const bool isAttacker) const {
     // execute the selected ability
+    // and activate any effects
     if (isAttacker) {
         _attackerAbility->getAction()();
         std::cout << "\n~ " << _attacker->getName() << " used " << _attackerAbility->getAbilityName() << " ~\n" <<

@@ -26,14 +26,13 @@ public:
 
 class ActiveEffect final : public RepeatableEffect {
 public:
-    ActiveEffect(const unsigned int rounds, const std::function<void()>&f) : RepeatableEffect(rounds,f) {}
-
+    ActiveEffect(unsigned int rounds, const std::function<void()>&f);
     void tick() override;
 };
 
 class DelayedEffect final : public RepeatableEffect {
 public:
-    DelayedEffect(const unsigned int rounds, const std::function<void()>&f) : RepeatableEffect(rounds,f) {}
+    DelayedEffect(unsigned int rounds, const std::function<void()>&f);
 
     void tick() override;
 };
