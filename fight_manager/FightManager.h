@@ -12,6 +12,10 @@
 class Ability;
 class Pokemon;
 
+/**
+ * \brief Singleton class that is responsible for managing the fights between
+ * the selected pokemons.
+ */
 class FightManager final {
     std::shared_ptr<Pokemon> _attacker = nullptr;
     std::shared_ptr<Pokemon> _defender = nullptr;

@@ -5,6 +5,10 @@
 #ifndef POKEBALLMANAGEMENTUTILS_H
 #define POKEBALLMANAGEMENTUTILS_H
 
+/**
+ * \brief Helper class that is used to represent a command
+ * that releases a pokemon from its pokeball.
+ */
 class a final {
 public:
     a operator-() const;

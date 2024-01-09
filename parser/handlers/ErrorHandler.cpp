@@ -5,6 +5,7 @@
 #include "ErrorHandler.h"
 
 #include <iostream>
+#include "../../utils/Utils.h"
 
 // Error class member function definitions
 std::string Error::getMessage() const { return message; }
@@ -17,7 +18,7 @@ void ErrorHandler::addError(const Error&error) { errors.push_back(error); }
 
 void ErrorHandler::printErrors() const {
     for (auto&error: errors) {
-        std::cerr << "Error on line #" << error.getLineNumber() << ": " << error.getMessage() << "." << std::endl;
+        std::cerr << RED_TEXT << "Error on line #" << error.getLineNumber() << ": " << error.getMessage() << "." << RESET_TEXT << std::endl;
     }
 }
 

@@ -8,11 +8,12 @@
 #include "../../utils/Utils.h"
 
 /**
- * \brief 
+ * \brief Specifies the name of the pokemon that will be taught
+ * an ability.
  */
 #define DEAR ; (*getPokemonByName(
 /**
- * \brief 
+ * \brief Used to teach a pokemon one or more abilities.
  */
 #define LEARN ))
 

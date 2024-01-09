@@ -63,19 +63,32 @@
 #define POKEBALL ;*FightManager::setPokeballStatus(
 
 /**
- * \brief
+ * \brief Used to release a pokemon from its pokeball.
+ * Correct usage: ---α
  */
 #define α a()
 
 /**
- * \brief
+ * \brief Used to send a pokemon into its pokeball.
  */
 #define _ true
 
+/**
+ * \brief Creates a battle effect that will activate after a
+ * certain amount of rounds.
+ */
 #define AFTER ; FightManager::effects + new DelayedEffect {
 
+/**
+ * \brief Creates a battle effect that will last for a specified
+ * amount of rounds.
+ */
 #define FOR ; FightManager::effects + new ActiveEffect {
 
+/**
+ * \brief Specifies for how many rounds an effect will be active for,
+ * or after how many rounds the effect will activate once.
+ */
 #define ROUNDS ,[](
 
 #endif //ACTIONSGEN_H

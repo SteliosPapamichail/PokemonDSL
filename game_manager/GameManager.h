@@ -11,6 +11,10 @@
 #include "../lexer/abilities/AbilityExpressions.h"
 #include "../pokemon_models/Pokemon.h"
 
+/**
+ * \brief Singleton class that is responsible for managing the game's
+ * lifecycle.
+ */
 class GameManager final {
     std::vector<std::shared_ptr<Pokemon>> _declaredPokemons = {};
     std::vector<std::shared_ptr<SingleAbilityExpr>> _declaredAbilities = {};

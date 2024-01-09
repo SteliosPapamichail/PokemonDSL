@@ -25,6 +25,10 @@ public:
     std::function<void()> getAction() const;
 };
 
+/**
+ * \brief Represents a Pokemon entity. Each pokemon has some relevant
+ * attributes (name, hp, ability) and behaviors (attacking, taking damage, healing, etc.).
+ */
 class Pokemon final {
     std::string name;
     POKEMON_TYPE type;

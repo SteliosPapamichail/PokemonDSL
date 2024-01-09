@@ -10,6 +10,10 @@
 
 class Pokemon;
 
+/**
+ * \brief Represents a Player entity. Each player has a name
+ * and a selected pokemon that is used in battle.
+ */
 class Player final {
     std::string _name;
     bool _isPlaying = false;
